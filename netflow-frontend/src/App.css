@@ -1,5 +1,12 @@
-.App {
+html {
+  scroll-behavior: smooth;
+}
+
+.App { /* app is going to be synonymous with homepage*/
   text-align: center;
+  background-image: url("homepagebg.svg");
+  background-size: cover;
+  height: 100vh;
 }
 
 .App-logo{
@@ -10,6 +17,21 @@
   padding: 10px;
 }
 
+.button{
+  border-radius: 25px;
+  border-color:#37ABEC;
+  width: 220px;
+  height: 40px;
+  display:inline-block;
+  font-size: large;
+  font-family: 'Arial Black','serif';
+  background-color: #37ABEC;
+  color: white;
+  text-shadow: 2px 2px grey;
+}
+.button:hover{
+  text-decoration: underline;
+}
 .Name{
   display: inline-block; /* Make the text inline-block */
   vertical-align: middle; /* Vertically align the text within the line */
@@ -24,29 +46,20 @@ p{
   justify-content: center;
   font-size: calc(10px + 5vmin);
   font-family: 'Arial Black','serif';
-
+  text-shadow: 1px 2px grey;
 }
 
 .first-line{
   padding-top: 20vh;
 }
 
-@media (prefers-reduced-motion: no-preference) {
+/*@media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-}
+}*/
 
-.App-header {
-  background-color: #37ABEC;
-  min-height: 10vh;
-  display: flex;
-  flex-direction: row;
-  align-items: start;
-  justify-content: flex-start;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+
 
 .App-link {
   color: #61dafb;
