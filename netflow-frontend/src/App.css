@@ -2,9 +2,33 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
+.App-logo{
+  display: inline-block; /* Make the image inline-block */
+  vertical-align: middle;
+  height: 6vmin;
   pointer-events: none;
+  padding: 10px;
+}
+
+.Name{
+  display: inline-block; /* Make the text inline-block */
+  vertical-align: middle; /* Vertically align the text within the line */
+  margin-top: 20px; /* Add some margin to separate the image and text */
+  font-family: 'Arial Black', 'serif';
+  text-shadow: 3px 3px black;
+}
+
+p{
+  display:flex;
+  align-content: center;
+  justify-content: center;
+  font-size: calc(10px + 5vmin);
+  font-family: 'Arial Black','serif';
+
+}
+
+.first-line{
+  padding-top: 20vh;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -14,12 +38,12 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: #37ABEC;
+  min-height: 10vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  flex-direction: row;
+  align-items: start;
+  justify-content: flex-start;
   font-size: calc(10px + 2vmin);
   color: white;
 }
