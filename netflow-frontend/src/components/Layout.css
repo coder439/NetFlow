@@ -1,0 +1,17 @@
+nav {
+    background-color: #333; /* Set background color */
+    padding: 10px; /* Add padding to the entire nav */
+  }
+  
+  ul {
+    list-style: none; /* Remove list bullet points */
+    margin: 0;
+    padding: 0;
+    display: flex; /* Use flexbox to create horizontal layout */
+  }
+  
+  .nav-link {
+    margin-right: 370px; /* Add right margin to create spacing between links */
+  }
+  
+  

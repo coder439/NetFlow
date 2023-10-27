@@ -1,0 +1,76 @@
+html {
+    scroll-behavior: smooth;
+  }
+  
+  .App { /* app is going to be synonymous with homepage*/
+    text-align: center;
+    background-image: url("homepagebg.svg");
+    background-size: cover;
+    height: 100vh;
+  }
+  
+  .App-logo{
+    display: inline-block; /* Make the image inline-block */
+    vertical-align: middle;
+    height: 6vmin;
+    pointer-events: none;
+    padding: 10px;
+  }
+  
+  .button{
+    border-radius: 25px;
+    border-color:#37ABEC;
+    width: 220px;
+    height: 40px;
+    display:inline-block;
+    font-size: large;
+    font-family: 'Arial Black','serif';
+    background-color: #37ABEC;
+    color: white;
+    text-shadow: 2px 2px grey;
+  }
+  .button:hover{
+    text-decoration: underline;
+  }
+  .Name{
+    display: inline-block; /* Make the text inline-block */
+    vertical-align: middle; /* Vertically align the text within the line */
+    margin-top: 20px; /* Add some margin to separate the image and text */
+    font-family: 'Arial Black', 'serif';
+    text-shadow: 3px 3px black;
+  }
+  
+  p{
+    display:flex;
+    align-content: center;
+    justify-content: center;
+    font-size: calc(10px + 5vmin);
+    font-family: 'Arial Black','serif';
+    text-shadow: 1px 2px grey;
+  }
+  
+  .first-line{
+    padding-top: 20vh;
+  }
+  
+  /*@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+      animation: App-logo-spin infinite 20s linear;
+    }
+  }*/
+  
+  
+  
+  .App-link {
+    color: #61dafb;
+  }
+  
+  @keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
