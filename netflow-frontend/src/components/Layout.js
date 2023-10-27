@@ -1,16 +1,18 @@
 import React from 'react';
 import HomeButton from './homeButton';
-import logo from '../logo.svg';
 import { Outlet, Link } from "react-router-dom";
 import './Layout.css'
+import logo from '../pages/netflowlogo.png'
+
 
 function Layout() {
   return (
     <div className="Layout">
       <header className="Layout-header">
-
         <nav>
           <ul>
+              <img src={logo} className="App-logo" alt="logo" />
+              <div className = "Name"><b>NetFlow</b></div>
             <Link to="/" className='nav-link'>Dashboard</Link>
             <Link to="/Expenses" className='nav-link'>Expenses</Link>
             <Link to="/Calendar" className='nav-link'>Calendar</Link>
