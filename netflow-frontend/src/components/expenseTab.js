@@ -1,7 +1,7 @@
 import React from 'react';
 import './expenseTab.css';
 
-function ExpenseTab({key, expense, date, location, cost, necessity, planned, color}) {
+function ExpenseTab({key, expense, date, cost, necessity, planned, color}) {
     const styles = {
         backgroundColor: color,
       };
@@ -12,7 +12,6 @@ function ExpenseTab({key, expense, date, location, cost, necessity, planned, col
                 <tr>
                     <th>{expense}</th>
                     <th>{date}</th>
-                    <th>{location}</th>
                     <th>${cost}</th>
                     <th>{necessity}</th>
                     <th>{planned}</th>

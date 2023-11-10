@@ -47,6 +47,7 @@ function Welcome() {
         var url = "http://localhost:8080/accountInfo";
         httpGetAsync(url, handleResponse);
     };
+    fetchData()
   return (
 
     <div className="Welcome">
