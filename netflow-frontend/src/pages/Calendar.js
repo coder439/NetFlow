@@ -8,7 +8,7 @@ function Calendar() {
     <div className="Calendar">
       <header className="Calendar-header">
 
-        <p>blue</p>
+        <p>Calendar</p>
       </header>
     </div>
   );
