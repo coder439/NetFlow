@@ -1,0 +1,28 @@
+nav {
+    background-color: #37ABEC; /* Set background color */
+    width: 100vw;
+    max-height: 10vh;
+
+}
+
+ul {
+    list-style: none; /* Remove list bullet points */
+    margin: 0;
+    padding-top:0;
+    display: inline; /* Use flexbox to create horizontal layout */
+    vertical-align: top;
+}
+
+.Name{
+    display: inline-block; /* Make the text inline-block */
+    vertical-align: top; /* Vertically align the text within the line */
+    font-family: 'Arial Black', 'serif';
+    text-shadow: 1px 1px gray
+}
+.nav-link {
+    margin-right: 5vw; /* Add right margin to create spacing between links */
+    margin-left: 7vw;
+    padding-top: 10px;
+}
+
+
