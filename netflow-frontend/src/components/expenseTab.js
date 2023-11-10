@@ -1,15 +1,19 @@
 import React from 'react';
 import './expenseTab.css';
 
-function ExpenseTab({key, expense, date, location, cost, necessity, planned}) {
+function ExpenseTab({key, expense, date, location, cost, necessity, planned, color}) {
+    const styles = {
+        backgroundColor: color,
+      };
+
     return (
         <div>
-            <table>
+            <table style = {styles}>
                 <tr>
                     <th>{expense}</th>
                     <th>{date}</th>
                     <th>{location}</th>
-                    <th>{cost}</th>
+                    <th>${cost}</th>
                     <th>{necessity}</th>
                     <th>{planned}</th>
                 </tr>

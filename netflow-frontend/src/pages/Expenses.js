@@ -21,10 +21,14 @@ function Expenses() {
   addExpense();
   addExpense();
   addExpense();
-  const tabs = Array.from({ length:expenseArray.length}, (_, index) => (
-    <ExpenseTab key = {index} expense = "Grocery Shopping" date = "5/11/2023" 
-    location = "Walmart" cost = "89.43" necessity = {4}  planned = "True"/>
-  ));
+
+  const tabs = [
+    <ExpenseTab key={0} expense="Grocery Shopping" date="5/11/2023" location="Walmart" cost="89.43" necessity={4} planned="True" color="purple" />,
+    <ExpenseTab key={1} expense="Dining Out" date="5/12/2023" location="Restaurant" cost="45.99" necessity={3} planned="False" color="green" />,
+    <ExpenseTab key={2} expense="Gasoline" date="5/13/2023" location="Gas Station" cost="60.75" necessity={5} planned="True" color="blue" />,
+    // Add more tabs with different colors as needed
+  ];
+  
 
   return (
     <div className="Expenses">

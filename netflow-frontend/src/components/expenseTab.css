@@ -1,12 +1,17 @@
 table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  th {
-    padding-left: 85px;
-    padding-right: 85px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    text-align: center;
-  }
+  width: 100%;
+  border-collapse: collapse;
+  border-radius:0 0 50px 50px;
+  background-color: blueviolet;
+  margin-bottom: 20px;
+  border: 50px;
+  border-color: black;
+}
+
+th {
+  padding-left: 129px;
+  padding-right: 129px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+}
