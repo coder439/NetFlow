@@ -18,28 +18,31 @@ function Welcome() {
         xmlHttp.send(null);
     };
 
-    const handleResponse = (response) => {
-        console.log("Response received:", response);
-        setResponseData(response);
-        // You can perform additional actions with the response here
-
-    };
-
-    const parseAndDisplayData = () => {
+    const handleResponse = (responseData) => {
+        console.log("Response received:", responseData);
+        let paragraphs = [];
         if (responseData) {
             try {
                 // Assuming the data is in JSON format
                 const parsedData = JSON.parse(responseData);
-
-
-
+                parsedData.accounts.forEach(account => {
+                    paragraphs.push(
+                        <p3 key={account.accountId}>
+                            Account Name: {account.name + "\t\t"}
+                            Current Balance: {account.balances.current}<br />
+                        </p3>
+                    );
+                });
                 // Display parsed data
-                setResponseData(parsedData);
             } catch (error) {
                 console.error('Error parsing JSON:', error);
             }
         }
+        setResponseData(paragraphs);
+        // You can perform additional actions with the response here
+
     };
+
     const fetchData = () => {
         var url = "http://localhost:8080/accountInfo";
         httpGetAsync(url, handleResponse);
@@ -49,9 +52,8 @@ function Welcome() {
     <div className="Welcome">
       <header className="Welcome-header">
           <p>Dashboard</p>
-          <button onClick={() => {fetchData(); parseAndDisplayData();}}>Get Data</button>
+          <button onClick={fetchData}>Get Data</button>
           <div>
-              <p>Data from the URL:</p>
               <pre>{responseData}</pre>
           </div>
       </header>
