@@ -1,0 +1,20 @@
+.Welcome { /* app is going to be synonymous with homepage*/
+    text-align: center;
+    background-image: url("homepagebg.svg");
+    background-size: cover;
+    height: 80vh;
+}
+.button{
+    border-radius: 25px;
+    border-color:#37ABEC;
+    width: 220px;
+    height: 40px;
+    display:flex;
+    font-size: large;
+    font-family: 'Arial Black','serif';
+    background-color: #37ABEC;
+    color: white;
+    text-shadow: 2px 2px grey;
+    text-align: center;
+    margin: auto;
+}

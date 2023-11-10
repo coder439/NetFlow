@@ -13,11 +13,11 @@ function Layout() {
           <ul>
               <img src={logo} className="App-logo" alt="logo" />
               <div className = "Name"><b>NetFlow</b></div>
-            <Link to="/" className='nav-link'>Dashboard</Link>
+            <Link to="/" className='nav-link'>Welcome</Link>
             <Link to="/Expenses" className='nav-link'>Expenses</Link>
             <Link to="/Calendar" className='nav-link'>Calendar</Link>
             <Link to="/Calculator" className='nav-link'>Calculator</Link>
-            <Link to="*" className='nav-link'>Welcome</Link>
+            <Link to="*" className='nav-link'>Dashboard</Link>
           </ul>
       </nav>
 
