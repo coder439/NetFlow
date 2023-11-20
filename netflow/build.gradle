@@ -18,7 +18,17 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'com.plaid:plaid-java:17.0.0'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+application {
+    // Specify the main class for your application
+    mainClassName = 'com.example.netflow.NetflowApplication'
+}
+
+bootJar {
+    mainClassName = 'com.example.netflow.NetflowApplication'
 }
 
 tasks.named('test') {

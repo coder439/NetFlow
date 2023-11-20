@@ -5,6 +5,11 @@ import com.plaid.client.model.*;
 import com.plaid.client.request.PlaidApi;
 import org.springframework.stereotype.Service;
 import retrofit2.Response;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import com.example.netflow.model.PlaidAccount;
+// import com.example.netflow.service.MongoConfig;
+
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -12,7 +17,11 @@ import java.util.HashMap;
 
 @Service
 public class AccountsService {
-    public AccountsGetResponse getAccountInfo() throws IOException {
+        
+        @Autowired
+        private MongoTemplate mongoTemplate;
+
+        public AccountsGetResponse getAccountInfo() throws IOException {
         PlaidApi plaidClient;
         HashMap<String, String> apiKeys = new HashMap<String, String>();
         apiKeys.put("clientId", "6521df56008d6a001ddd4c5a");
@@ -34,7 +43,7 @@ public class AccountsService {
         Response<ItemPublicTokenExchangeResponse> response = plaidClient
                 .itemPublicTokenExchange(exchangeRequest)
                 .execute();
-//
+        //
         // These values should be saved to a persistent database and
         // associated with the currently signed-in user
         String accessToken = response.body().getAccessToken();
@@ -44,6 +53,14 @@ public class AccountsService {
         Response<AccountsGetResponse> accountsResponse = plaidClient
                 .accountsGet(request)
                 .execute();
+
+        // Save Plaid account information in MongoDB
+        PlaidAccount plaidAccount = new PlaidAccount();
+        plaidAccount.setAccessToken(accessToken);
+        plaidAccount.setItemId(itemId);
+
+        mongoTemplate.save(plaidAccount);
+
         return accountsResponse.body();
 
         
