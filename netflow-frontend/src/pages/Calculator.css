@@ -22,14 +22,23 @@
     margin: 0 auto;
     margin-top: 240px;
     z-index: 1;
+    font-family: 'Lalezar';
+    color: #FFFFFF;
+    font-size: 38px;
+    vertical-align: top;
   }
 
+
   #cRight {
-    right: 320px;
+    right: 314px;
+    text-align: right;
+    padding-right: 10px;
   }
 
   #cLeft {
     margin-left: 0px;
+    text-align: left;
+    padding-left: 10px;
   }
   
   #input {
@@ -46,9 +55,9 @@
     font-size: 16px; 
     position: absolute; 
     height: 50px;
-    text-align: right;
     right: 300; 
     padding-right: 10px;
+    padding-left: 10px;
     z-index: 1;
     font-weight: bold;
     border: none;
@@ -58,7 +67,9 @@
   .histLine {
     padding-bottom: 20px;
     font-family: 'Arial Black';
-    font-size: 20px;
+    font-size: 22px;
+    color: #FFFFFF;
+    -webkit-text-stroke: .7px black;
   }
 
   .histBox {
@@ -83,6 +94,14 @@
     gap: 0;
   }
 
+  .sideDigits {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin-top: 72px;
+    margin-left: 780px;
+  }
+
   .operators-container {
     display: grid;
     grid-template-columns: 1fr;
@@ -97,6 +116,44 @@
     position: absolute;
     margin-top: 72px;
     margin-left: 850px;
+  }
+
+  #startP {
+    border-bottom-left-radius: 40px;
+    border-top-left-radius: 40px;
+    left:0px
+  }
+
+  #endP {
+    border-right: 1px solid black;
+    border-bottom-right-radius: 40px;
+    border-top-right-radius: 40px;
+    left:0px
+  }
+
+  .paren-container {
+    display: flex;
+    position: absolute;
+    flex-direction: row;
+    margin-top: 142px;
+  }
+
+  .paren-button {
+    margin: 5px;
+    padding-top: 5px;
+    width: 55px;
+    height: 55px;
+    background-color: #c4c4c4;
+    color: #000000;
+    font-size: 25px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    align-items: left;
+    justify-content: center;
+    font-family: 'Lalezar';
   }
 
   .digit-button {
@@ -169,12 +226,12 @@
   .set-button {
     margin:7px;
     padding: 5px;
-    width: 250px;
+    width: 200px;
     height: 50px;
     border-radius: 40px;
     background-color: #c4c4c4;
     color: #000000;
-    font-size: 23px;
+    font-size: 20px;
     font-weight: bold;
     border: none;
     cursor: pointer;
@@ -192,6 +249,8 @@
     margin-top: 9px;
     margin-left: 310px;
 }
+
+  
 
   .vers-button {
     margin:0px;
@@ -222,5 +281,45 @@
     border-top-left-radius: 40px;
   }
  
+  .submit-container {
+    display: flex;
+    position: absolute;
+    flex-direction: row;
+    margin-top: 75px;
+    margin-left: 310px;
+}
 
+  
+
+  .vers-button {
+    margin:0px;
+    padding-top: 13px;
+    width: 120px;
+    height: 50px;
+    background-color: #c4c4c4;
+    color: #000000;
+    font-size: 30px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Lalezar';
+  }
+
+  #delete {
+    border-bottom-left-radius: 40px;
+    font-size: 40px;
+    border-top-left-radius: 40px;
+    border-right: 1px solid black;
+  }
+
+  #enter {
+    font-size: 40px;
+    border-bottom-right-radius: 40px;
+    border-top-right-radius: 40px;
+    
+  }
   
