@@ -17,6 +17,8 @@ function Layout() {
             <Link to="/Expenses" className='nav-link'>Expenses</Link>
             <Link to="/Calendar" className='nav-link'>Calendar</Link>
             <Link to="/Calculator" className='nav-link'>Calculator</Link>
+            <Link to="/Goals" className='nav-link'>Goals</Link>
+
             <Link to="*" className='nav-link'>Dashboard</Link>
           </ul>
       </nav>

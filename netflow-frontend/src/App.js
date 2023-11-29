@@ -14,6 +14,7 @@ import Expenses from './pages/Expenses.js'
 import Dashboard from './pages/Dashboard';
 import Calendar from './pages/Calendar.js';
 import Calculator from './pages/Calculator';
+import Goals from './pages/Goals';
 import './App.css';
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
               <Route path="expenses" element={<Expenses />} />
               <Route path="calculator" element={<Calculator />} />
               <Route path="calendar" element={<Calendar />} />
+              <Route path="goals" element={<Goals />} />
               <Route path="*" element={<Welcome />} />
             </Route>
           </Routes>
