@@ -6,11 +6,10 @@ nav {
 }
 
 ul {
-    list-style: none; /* Remove list bullet points */
-    margin: 0;
-    padding-top:0;
-    display: inline; /* Use flexbox to create horizontal layout */
-    vertical-align: top;
+    list-style-type: none; /* Removes the default list styling */
+    display: flex; /* Aligns items horizontally */
+    align-items: center; /* Centers items vertically */
+    padding: 0; /* Removes default padding */
 }
 
 .Name{
