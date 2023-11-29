@@ -4,6 +4,9 @@
     background-size: cover;
     height: 80vh;
 }
+.Welcome-header{
+    align-items: center;
+}
 .button{
     border-radius: 25px;
     border-color:#37ABEC;
@@ -17,4 +20,17 @@
     text-shadow: 2px 2px grey;
     text-align: center;
     margin: auto;
+}
+.Charts-right
+{
+    height: 50vh;
+    width: 50vw;
+    display: inline-flex;
+    padding-right: 8vw;
+}
+
+.Mid-text p3{
+    display:inline-block;
+    font-size: 15px;
+    font-weight: bold;
 }
