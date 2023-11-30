@@ -30,4 +30,8 @@
 #tabs-container {
   position: fixed;
   top: 150px;
+  max-height: calc(100vh - 150px); /* Adjust the value based on your layout */
+  overflow-y: auto; /* Add a scrollbar if the content exceeds the max-height */
+  box-sizing: border-box;
+
 }

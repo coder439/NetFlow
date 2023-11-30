@@ -19,7 +19,7 @@ import './App.css';
 
 function App() {
   return (
-    <div>
+    <div className="All-encompassing">
       <header>
         <BrowserRouter>
           {/*<HomeButton/>*/}
@@ -29,13 +29,13 @@ function App() {
 
         <BrowserRouter >
           <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Dashboard />} />
-              <Route path="expenses" element={<Expenses />} />
-              <Route path="calculator" element={<Calculator />} />
-              <Route path="calendar" element={<Calendar />} />
-              <Route path="goals" element={<Goals />} />
-              <Route path="*" element={<Welcome />} />
+            <Route path="/*" element={<Layout style={{display:'flex'}}/>}>
+            <Route index element={<Dashboard />} />
+            <Route path="expenses" element={<Expenses />} />
+            <Route path="calculator" element={<Calculator />} />
+            <Route path="calendar" element={<Calendar />} />
+            <Route path="goals" element={<Goals />} />
+            <Route path="*" element={<Welcome />} />
             </Route>
           </Routes>
         </BrowserRouter>

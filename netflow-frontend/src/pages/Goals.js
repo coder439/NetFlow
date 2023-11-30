@@ -57,7 +57,7 @@ function Goals() {
   return (
     <div className="Calendar">
       <header className="Calendar-header">
-/*
+          {/*
 need to display goals that already exist (defaults, and progress towards them. for example, 
 next power of 10 net worth, expenses should be below avg american 
 maybe can input age and calculate how much u should have saved up 
@@ -70,7 +70,7 @@ create functions for net worth and overall expense volume, everything else shoul
 maybe time aspect for goals is important to do 
 ) 
 )
-*/
+*/}
         <p>Goals</p>
         {loading ? (
         <div className="spinner-container"> {/* Use the container class here */}

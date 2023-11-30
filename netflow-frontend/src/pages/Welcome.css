@@ -1,8 +1,7 @@
 .Welcome { /* app is going to be synonymous with homepage*/
     text-align: center;
-    background-image: url("homepagebg.svg");
     background-size: cover;
-    height: 80vh;
+    height: 85vh;
 }
 .Welcome-header{
     align-items: center;
@@ -21,12 +20,13 @@
     text-align: center;
     margin: auto;
 }
+
 .Charts-right
 {
-    height: 50vh;
-    width: 50vw;
+    height: 45vh;
+    width: 45vw;
     display: inline-flex;
-    padding-right: 8vw;
+
 }
 
 .Mid-text p3{
