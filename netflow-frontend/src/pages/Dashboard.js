@@ -22,12 +22,10 @@ function Dashboard() {
             <p>
                 <b>Your All In One Financial Solution</b>
             </p>
-            <div className="button">
                 <Link to='/*'>
                     <MyButton text="Get Started" onClick={handleClick}/> {}
                 </Link>
 
-            </div>
         </div>
     );
 

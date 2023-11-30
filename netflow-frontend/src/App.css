@@ -1,0 +1,20 @@
+.All-encompassing{
+    text-align: center;
+    background-color: #212529;
+    background-size: cover;
+    color:black;
+    overflow-y: auto;
+}
+#myTabsContainer {
+    background-color: #212529 !important;
+
+}
+
+#myTabsContainer .nav-link {
+    color: white !important;
+    text-align:left;
+}
+
+#myTabsContainer .nav-link:hover {
+    background-color: grey !important;
+}

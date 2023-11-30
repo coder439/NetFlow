@@ -1,27 +1,13 @@
-nav {
-    background-color: #37ABEC; /* Set background color */
-    width: 100vw;
-    max-height: 10vh;
+.d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary {
+    padding-left: 280px; /* Adjust this value based on your sidebar width */
 
 }
-
-ul {
-    list-style-type: none; /* Removes the default list styling */
-    display: flex; /* Aligns items horizontally */
-    align-items: center; /* Centers items vertically */
-    padding: 0; /* Removes default padding */
-}
-
 .Name{
-    display: inline-block; /* Make the text inline-block */
-    vertical-align: top; /* Vertically align the text within the line */
-    font-family: 'Arial Black', 'serif';
-    text-shadow: 1px 1px gray
+    color:white;
 }
-.nav-link {
-    margin-right: 5vw; /* Add right margin to create spacing between links */
-    margin-left: 7vw;
-    padding-top: 10px;
+.less {
+    filter: invert(100%);
 }
+
 
 
