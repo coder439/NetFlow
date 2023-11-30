@@ -19,7 +19,7 @@ function Welcome() {
     const [liaResponseData, setLiaResponseData] = useState(null);
     const [loading, setLoading] = useState(true); // Add a loading state
     const [transactions, setTransactions] = useState([])
-    const [categories, setCategories] = useState(["Payment", "Travel", "Transfer", "Recreation",, "Food and Drink"])
+    const [categories, setCategories] = useState(["Payment", "Travel", "Transfer", "Recreation", "Food and Drink"])
     const [hashmap, setHashmap] = useState({"Payment": 0, "Travel": 0, "Transfer": 0, "Recreation": 0, "Food and Drink": 0})
     async function getExpenses(){
         const url = "http://localhost:8080/transactionsInfo"; 
@@ -34,110 +34,70 @@ function Welcome() {
     let [lTot, setLTot] = useState(null);
 
 
-    useEffect(() => {
-        async function fetchData() {
+    const fetchData = async () => {
+        try {
             setLoading(true);
-            const expenseData = await getExpenses(); 
+    
+            // Fetch expenses data
+            const expenseData = await getExpenses();
             setTransactions(expenseData["transactions"]);
     
-            // Create a copy of the current state to modify
+            // Update categories hashmap
             const updatedHashmap = { ...hashmap };
-    
             expenseData["transactions"].forEach(transaction => {
-                const category = transaction.category[0]; // Get the first category of each transaction
+                const category = transaction.category[0];
                 if (updatedHashmap.hasOwnProperty(category)) {
-                    updatedHashmap[category] += transaction.amount; // Update the corresponding value in the copy
+                    updatedHashmap[category] += transaction.amount;
                 } else {
-                    updatedHashmap[category] = transaction.amount; // Initialize if the category doesn't exist
+                    updatedHashmap[category] = transaction.amount;
                 }
             });
+            setHashmap(updatedHashmap);
     
-            setHashmap(updatedHashmap); // Update the state with the modified copy
+            const responseData = expenseData;
+            let paragraphs = [];
+            let liaParagraphs = [];
+            let liaLabels = [];
+            let labels = [];
+    
+            let localATot = 0;
+            let localLTot = 0;
+    
+            if (responseData) {
+                try {
+                    responseData.accounts.forEach(account => {
+                        if (account.type == "LOAN") {
+                            liaParagraphs.push(account.balances.current);
+                            liaLabels.push(account.name);
+                            localLTot += account.balances.current;
+                        } else {
+                            paragraphs.push(account.balances.current);
+                            labels.push(account.name);
+                            localATot += account.balances.current;
+                        }
+                    });
+                } catch (error) {
+                    console.error('Error parsing JSON:', error);
+                }
+            }
+            setATot(localATot);
+            setLTot(localLTot);
+            setResponseData(paragraphs);
+            setLabelData(labels);
+            setLiaResponseData(liaParagraphs);
+            setLiaLabelData(liaLabels);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        } finally {
             setLoading(false);
         }
+    };
+    
+
+    useEffect(() => {
         fetchData();
-    }, []); // Ensure dependencies are correct
-    const httpGetAsync = (theUrl, callback) => {
-        setLoading(true)
-        console.log("Making HTTP request to:", theUrl);
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.onreadystatechange = function () {
-            if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
-                callback(xmlHttp.responseText);
-            }
-        };
-        xmlHttp.open("GET", theUrl, true);
-        xmlHttp.send(null);
-    };
+    }, []); // Empty dependency array ensures this runs once after the component mounts
 
-    const handleResponse = (responseData) => {
-        // console.log("Response received:", responseData);
-        let paragraphs = [];
-        let liaParagraphs = [];
-        let liaLabels = [];
-        let labels = [];
-        if (responseData) {
-            try {
-                // Assuming the data is in JSON format
-                const parsedData = JSON.parse(responseData);
-                parsedData.accounts.forEach(account => {
-                    if (account.type == "LOAN")
-                    {
-                        liaParagraphs.push(
-                            account.balances.current
-                        );
-                        liaLabels.push(
-                            account.name
-                        )
-                        lTot = lTot + account.balances.current;
-                    }
-                    else
-                    {
-                        paragraphs.push(
-                            account.balances.current
-                        );
-                        labels.push(
-                            account.name
-                        )
-                        aTot = aTot + account.balances.current;
-                    }
-
-                });
-                /*TODO FORM THE TRANSACTIONS INTO GROUPS AND PIE CHART IT!!!*/
-                parsedData.transactions.forEach(account => {
-                    if (account.type == "LOAN")
-                    {
-                        liaParagraphs.push(
-                            account.balances.current
-                        );
-                        liaLabels.push(
-                            account.name
-                        )
-                    }
-                    else
-                    {
-                        paragraphs.push(
-                            account.balances.current
-                        );
-                        labels.push(
-                            account.name
-                        )
-                    }
-
-                });
-            } catch (error) {
-                console.error('Error parsing JSON:', error);
-            }
-        }
-        setATot(aTot);
-        setLTot(lTot);
-        setResponseData(paragraphs);
-        setLabelData(labels);
-        setLiaResponseData(liaParagraphs);
-        setLiaLabelData(liaLabels);
-        // You can perform additional actions with the response here
-        setLoading(false)
-    };
     console.log(categories)
     console.log(Object.values(hashmap))
     const expensesData = {
@@ -168,7 +128,6 @@ function Welcome() {
     }
 
 
-    // test
      const data = {
 
         labels:labelData,
@@ -234,9 +193,6 @@ function Welcome() {
             }
         }
     }
-    console.log(liaLabelData)
-    console.log(liaResponseData)
-    console.log(hashmap)
     const liaData = {
         labels:liaLabelData,
         datasets:[
@@ -262,10 +218,6 @@ function Welcome() {
             }
         ]
     }
-    const fetchData = () => {
-        var url = "http://localhost:8080/transactionsInfo";
-        httpGetAsync(url, handleResponse);
-    };
 
     useEffect(() => {
         let isMounted = true;
