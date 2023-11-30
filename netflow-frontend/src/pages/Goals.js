@@ -67,6 +67,7 @@ i dont think graph of progress makes sense since we dont have that data, so depr
 every budget should be modifiable 
 
 create functions for net worth and overall expense volume, everything else should be button
+maybe time aspect for goals is important to do 
 ) 
 )
 */

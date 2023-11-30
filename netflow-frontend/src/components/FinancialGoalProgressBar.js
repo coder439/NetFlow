@@ -16,7 +16,7 @@ const FinancialGoalProgressBar = ({ goalName, currentAmount, initialGoalAmount,e
         <div style={{ textAlign: 'center' }}>
             <h3>{goalName}</h3>
             <div style={{ width: '50%', margin: 'auto' }}>
-                <ProgressBar now={progress} label={`${progress.toFixed(2)}%`} variant={progressBarColor} />
+                <ProgressBar now={progress}  variant={progressBarColor} />
             </div>
             <div>
                 Current Amount: ${currentAmount.toFixed(2)} / 
