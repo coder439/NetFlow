@@ -1,11 +1,12 @@
 table {
-  width: 100%;
+  width: 100vw;
   border-collapse: collapse;
   border-radius:0 0 50px 50px;
-  background-color: blueviolet;
+  background-color: orange;
   margin-bottom: 20px;
   border: 50px;
   border-color: black;
+  align-items: center;
 }
 
 th {
@@ -14,4 +15,11 @@ th {
   padding-top: 20px;
   padding-bottom: 20px;
   text-align: center;
+  
+}
+td{
+  width: 34vw;
+}
+.expenses{
+  
 }
