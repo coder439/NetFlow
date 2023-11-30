@@ -95,11 +95,11 @@
   }
 
   .sideDigits {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(3, 2fr);;
     position: absolute;
     margin-top: 72px;
-    margin-left: 780px;
+    margin-left: 620px;
   }
 
   .operators-container {
@@ -107,7 +107,7 @@
     grid-template-columns: 1fr;
     position: absolute;
     margin-top: 0px;
-    margin-left: 1060px;
+    right: 330px;
   }
   
   .digits-container {
@@ -115,45 +115,7 @@
     grid-template-columns: repeat(3, 1fr);
     position: absolute;
     margin-top: 72px;
-    margin-left: 850px;
-  }
-
-  #startP {
-    border-bottom-left-radius: 40px;
-    border-top-left-radius: 40px;
-    left:0px
-  }
-
-  #endP {
-    border-right: 1px solid black;
-    border-bottom-right-radius: 40px;
-    border-top-right-radius: 40px;
-    left:0px
-  }
-
-  .paren-container {
-    display: flex;
-    position: absolute;
-    flex-direction: row;
-    margin-top: 142px;
-  }
-
-  .paren-button {
-    margin: 5px;
-    padding-top: 5px;
-    width: 55px;
-    height: 55px;
-    background-color: #c4c4c4;
-    color: #000000;
-    font-size: 25px;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    outline: none;
-    display: flex;
-    align-items: left;
-    justify-content: center;
-    font-family: 'Lalezar';
+    margin-left: 830px;
   }
 
   .digit-button {
@@ -179,13 +141,13 @@
     display: flex;
     position: absolute;
     margin-top: 6px;
-    right: 380px;
+    right: 400px;
   }
 
   .var-button {
     margin: 3px;
     padding: 0;
-    width: 120px;
+    width: 100px;
     height: 50px;
     border-radius: 40px;
     background-color: #c4c4c4;
@@ -220,18 +182,18 @@
     display: flex;
     position: absolute;
     margin-top: 215px;
-    margin-left: 305px;
+    margin-left: 328px;
   }
 
   .set-button {
     margin:7px;
     padding: 5px;
-    width: 200px;
+    width: 235px;
     height: 50px;
     border-radius: 40px;
     background-color: #c4c4c4;
     color: #000000;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: bold;
     border: none;
     cursor: pointer;
@@ -247,7 +209,7 @@
     position: absolute;
     flex-direction: row;
     margin-top: 9px;
-    margin-left: 310px;
+    margin-left: 333px;
 }
 
   
@@ -255,7 +217,7 @@
   .vers-button {
     margin:0px;
     padding-top: 13px;
-    width: 120px;
+    width: 135px;
     height: 50px;
     background-color: #c4c4c4;
     color: #000000;
@@ -286,28 +248,10 @@
     position: absolute;
     flex-direction: row;
     margin-top: 75px;
-    margin-left: 310px;
+    margin-left: 333px;
 }
 
   
-
-  .vers-button {
-    margin:0px;
-    padding-top: 13px;
-    width: 120px;
-    height: 50px;
-    background-color: #c4c4c4;
-    color: #000000;
-    font-size: 30px;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    outline: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Lalezar';
-  }
 
   #delete {
     border-bottom-left-radius: 40px;

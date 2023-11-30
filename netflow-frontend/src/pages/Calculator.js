@@ -7,43 +7,71 @@ import { expression } from 'mathjs';
 function Calculator() {
   const [userInput, setUserInput] = useState('');
   const [historyArrL, setHistoryArrL] = useState(['','','','']);
-  const [historyArrR, setHistoryArrR] = useState(['0','','','']);
-  const [varArrayR, setVarArrayR] = useState([]);
-  const [varArrayB, setVarArrayB] = useState([]);
+  const [historyArrR, setHistoryArrR] = useState(['','','','']);
+  const [funcArrayR, setfuncArrayR] = useState([]);
+  const [funcArrayB, setfuncArrayB] = useState([]);
   const [varArrayY, setVarArrayY] = useState([]);
   const [varArrayG, setVarArrayG] = useState([]);
   const [totalL, setTotalL] = useState(0.00);
   const [totalR, setTotalR] = useState(0.00);
   const [right, setRight] = useState(true);
+  const [createFunc, setCreateFunc] = useState(false);
+  const [createVar, setCreateVar] = useState(false);
 
   const handleButtonClick = (value) => {
-    setUserInput((prevInput) => prevInput + value);
+    const inputElement = document.getElementById('input');
+
+    var curPos = inputElement.selectionStart;
+
+    setUserInput((prevInput) => prevInput.slice(0, curPos) + value + prevInput.slice(curPos));
+
+    curPos = inputElement.selectionStart;
+    inputElement.setSelectionRange(curPos + 1, curPos + 1);
+    inputElement.focus();
   };
 
   const handleType = (event) => {
     setUserInput(event.target.value);
   };
 
+  const togVar = () => {
+    setCreateVar((prevVal) => !prevVal);
+  };
+
+  const togFunc = () => {
+    setCreateFunc((prevVal) => !prevVal);
+  };
+
+  const handleEnter = () => {
+    const keyPress = new KeyboardEvent('keydown', {
+      key: 'Enter'
+    });
+    handleKeyDown(keyPress);
+  };
+  
+
   const handleDelete = () => {
     setUserInput((prevInput) => prevInput.slice(0, -1));
   };
 
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      const inputElement = document.getElementById('input');
-      inputElement.focus();
-      const textLength = inputElement.value.length;
-      inputElement.setSelectionRange(textLength, textLength);
-      if (event.key === 'Enter') 
-      {
+  const handleKeyDown = (event) => {
+
+    console.log(event.key);
+    const inputElement = document.getElementById('input');
+    inputElement.focus();
+    if (event.key === 'Enter') 
+    {
+        let str = inputElement.value;
+        if (!createVar && !createFunc)
+        {
           
-          let str = inputElement.value;
           str = str.replace(/÷/g,'/');
           str = str.replace(/×/g,'*');
-
+  
+  
           const math = require('mathjs');
           const res = math.evaluate(str);
-
+  
           if (right)
           {
             setTotalR((prevTotalR)=> prevTotalR+res);
@@ -52,8 +80,8 @@ function Calculator() {
           {
             setTotalL((prevTotalL)=> prevTotalL+res);
           }
-          
-
+  
+  
           str = str.replace(/\//g,'÷');
           str = str.replace(/\*/g,'×');
           if (right)
@@ -64,11 +92,22 @@ function Calculator() {
           {
             setHistoryArrL((prevHistoryArrayL) => [...prevHistoryArrayL, str]);
           }
-          
-          setUserInput('');
-      };
+        }
+        else if (createVar)
+        {
+          setfuncArrayB((prevVal) => [...prevVal, str]);
+        }
+        else
+        {
+          setVarArrayG((prevVal) => [...prevVal, str]);
+        }
+       
+        
+        setUserInput('');
     };
+  };
 
+  useEffect(() => {
     document.addEventListener('keydown', handleKeyDown);
 
     // Clean up the event listener when the component unmounts
@@ -83,13 +122,13 @@ function Calculator() {
       const mouseY = event.pageY;
 
       if (mouseX <= 720 && mouseX >= 247 && mouseY <= 437 && mouseY >= 57) {
-          setRight((prevRight) => !prevRight);
-          console.log(right);
+          setRight((prevRight) => false);
+          console.log(varArrayG);
           
       }
       else if (mouseX >= 720 && mouseX <= 1130 && mouseY <= 437 && mouseY >= 57) {
-        setRight((prevRight) => !prevRight);
-        console.log(right);
+        setRight((prevRight) => true);
+        console.log(funcArrayB);
       }
       
     };
@@ -100,7 +139,7 @@ function Calculator() {
     return () => {
       document.removeEventListener('click', handleSideSwitch);
     };
-  }, []);
+  }, [right]);
 
   
   
@@ -135,11 +174,13 @@ function Calculator() {
         />
       </div>
 
-
       <div className='buttons-container'>
         <div className="setters-container">
-          <button className="set-button">Create New Variable</button>
-          <button className="set-button"> Create New Function</button>
+          <button onClick={() => togVar()} className="set-button"
+          style={{color: createVar ? "red":"black"}} >Create New Variable</button>
+
+          <button onClick={() => togFunc()} className="set-button"
+          style={{color: createFunc ? "red":"black"}}> Create New Function</button>
         </div>
 
          <div className="versions-container">
@@ -148,8 +189,8 @@ function Calculator() {
          </div>
 
          <div className="submit-container">
-           <button className="vers-button" id = 'delete'>↤</button>
-           <button className="vers-button" id = 'enter'>↦</button>
+           <button onClick={() => handleDelete()} className="vers-button" id = 'delete'>↤</button>
+           <button onClick={() => handleEnter()} className="vers-button" id = 'enter'>↦</button>
          </div>
 
         <div className="variables-container">
@@ -160,7 +201,11 @@ function Calculator() {
         </div>  
 
         <div className='sideDigits'>
+          <button onClick={() => handleButtonClick('(')} className='digit-button'>(</button>
+          <button onClick={() => handleButtonClick(')')} className='digit-button'>)</button>
           <button onClick={() => handleButtonClick('0')} className='digit-button'>0</button>
+          <button onClick={() => handleButtonClick('^')} className='digit-button'>^</button>
+          <button onClick={() => handleButtonClick('%')} className='digit-button'>%</button>
           <button onClick={() => handleButtonClick('.')} className='digit-button'>.</button>
         </div>
         
