@@ -11,21 +11,54 @@ import Spinner from 'react-bootstrap/Spinner';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 Chart.register(Title);
-
+// Payment, Travel , Transfer , Transfer , Recreation, Travel , Food and Drink, Food and Drink, Food and Drink, Transfer 
 
 /*this file is actually the dashboard do not listen to class names*/
 function Welcome() {
     const [responseData, setResponseData] = useState(null);
     const [liaResponseData, setLiaResponseData] = useState(null);
     const [loading, setLoading] = useState(true); // Add a loading state
-
+    const [transactions, setTransactions] = useState([])
+    const [categories, setCategories] = useState(["Payment", "Travel", "Transfer", "Recreation",, "Food and Drink"])
+    const [hashmap, setHashmap] = useState({"Payment": 0, "Travel": 0, "Transfer": 0, "Recreation": 0, "Food and Drink": 0})
+    async function getExpenses(){
+        const url = "http://localhost:8080/transactionsInfo"; 
+        const expenseData = await fetch(url)
+        const data = await expenseData.json()
+        return data 
+      }
     const [labelData, setLabelData] = useState(null);
     const [liaLabelData, setLiaLabelData] = useState(null);
 
     let [aTot, setATot] = useState(null);
     let [lTot, setLTot] = useState(null);
 
+
+    useEffect(() => {
+        async function fetchData() {
+            setLoading(true);
+            const expenseData = await getExpenses(); 
+            setTransactions(expenseData["transactions"]);
+    
+            // Create a copy of the current state to modify
+            const updatedHashmap = { ...hashmap };
+    
+            expenseData["transactions"].forEach(transaction => {
+                const category = transaction.category[0]; // Get the first category of each transaction
+                if (updatedHashmap.hasOwnProperty(category)) {
+                    updatedHashmap[category] += transaction.amount; // Update the corresponding value in the copy
+                } else {
+                    updatedHashmap[category] = transaction.amount; // Initialize if the category doesn't exist
+                }
+            });
+    
+            setHashmap(updatedHashmap); // Update the state with the modified copy
+            setLoading(false);
+        }
+        fetchData();
+    }, []); // Ensure dependencies are correct
     const httpGetAsync = (theUrl, callback) => {
+        setLoading(true)
         console.log("Making HTTP request to:", theUrl);
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.onreadystatechange = function () {
@@ -38,7 +71,7 @@ function Welcome() {
     };
 
     const handleResponse = (responseData) => {
-        console.log("Response received:", responseData);
+        // console.log("Response received:", responseData);
         let paragraphs = [];
         let liaParagraphs = [];
         let liaLabels = [];
@@ -105,6 +138,37 @@ function Welcome() {
         // You can perform additional actions with the response here
         setLoading(false)
     };
+    console.log(categories)
+    console.log(Object.values(hashmap))
+    const expensesData = {
+
+        labels:categories,
+        datasets:[
+            {
+                data: Object.values(hashmap),
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                ],
+                borderWidth: .5,
+            }
+            ]
+    }
+
+
+    // test
      const data = {
 
         labels:labelData,
@@ -144,6 +208,19 @@ function Welcome() {
             }
         }
     }
+    const options3 = {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: false,
+                position: 'right',
+            },
+            title: {
+                display: true,
+                text: 'Expenses'
+            }
+        }
+    }
     const options2 = {
         responsive: true,
         plugins: {
@@ -157,6 +234,9 @@ function Welcome() {
             }
         }
     }
+    console.log(liaLabelData)
+    console.log(liaResponseData)
+    console.log(hashmap)
     const liaData = {
         labels:liaLabelData,
         datasets:[
@@ -219,6 +299,8 @@ function Welcome() {
                         <p3>Net Worth: ${aTot - lTot}</p3>
                     </div>
                     <Doughnut data={liaData} options={options2}/>
+                    <Doughnut data={expensesData} options={options3}/>
+
                 </div>
             )}
         </div>
