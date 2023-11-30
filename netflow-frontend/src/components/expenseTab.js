@@ -8,14 +8,23 @@ function ExpenseTab({key, expense, date, cost, necessity, planned, color}) {
 
     return (
         <div>
-            <table style = {styles}>
-                <tr>
-                    <th>{expense}</th>
-                    <th>{date}</th>
-                    <th>${cost}</th>
-                    <th>{necessity}</th>
-                    <th>{planned}</th>
-                </tr>
+            <table style={{ width: '100%', textAlign: 'left' }}>
+                <thead>
+                    <tr>
+                        <th>Expense</th>
+                        <th>Date</th>
+                        <th>Cost</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        <tr>
+                            <td style={{ paddingLeft: '129px' }}>{expense}</td>
+                            <td style={{ paddingLeft: '129px' }}>{date}</td>
+                            <td style={{ paddingLeft: '129px' }}>${cost.toFixed(2)}</td>
+                        </tr>
+                    }
+                </tbody>
             </table>
         </div>
     )
