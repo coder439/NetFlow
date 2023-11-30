@@ -7,6 +7,8 @@ import {Chart, Title} from 'chart.js';
 
 import {Pie} from 'react-chartjs-2';
 import { Doughnut } from 'react-chartjs-2';
+import Spinner from 'react-bootstrap/Spinner';
+
 ChartJS.register(ArcElement, Tooltip, Legend);
 Chart.register(Title);
 
@@ -15,6 +17,7 @@ Chart.register(Title);
 function Welcome() {
     const [responseData, setResponseData] = useState(null);
     const [liaResponseData, setLiaResponseData] = useState(null);
+    const [loading, setLoading] = useState(true); // Add a loading state
 
     const [labelData, setLabelData] = useState(null);
     const [liaLabelData, setLiaLabelData] = useState(null);
@@ -100,7 +103,7 @@ function Welcome() {
         setLiaResponseData(liaParagraphs);
         setLiaLabelData(liaLabels);
         // You can perform additional actions with the response here
-
+        setLoading(false)
     };
      const data = {
 
@@ -196,31 +199,30 @@ function Welcome() {
         };
     }, []);
 
-  return (
-
-    <div className="Welcome">
-      <header className="Welcome-header">
-          <p>Dashboard</p>
-      </header>
-          <div className='Charts-right'>
-              <Doughnut data={data} options={options}/>
-              <div className='Mid-text'>
-                  <p3 style={{color:'green'}}>Assets:$
-                      {aTot}
-                  </p3>
-                  <p3 style={{color:'#F41212'}}>Liabilities:$
-                       {lTot}
-                  </p3>
-                  <p3>NetWorth:${aTot - lTot}
-                  </p3>
-              </div>
-              <Doughnut data={liaData} options={options2}/>
-          </div>
-
-
-
-    </div>
-  );
+    return (
+        <div className="Welcome">
+            <header className="Welcome-header">
+                <p>Dashboard</p>
+            </header>
+            {loading ? (
+                <div className="spinner-container">
+                    <Spinner animation="border" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                </div>
+            ) : (
+                <div className='Charts-right'>
+                    <Doughnut data={data} options={options}/>
+                    <div className='Mid-text'>
+                        <p3 style={{color: 'green'}}>Assets: ${aTot}</p3>
+                        <p3 style={{color: '#F41212'}}>Liabilities: ${lTot}</p3>
+                        <p3>Net Worth: ${aTot - lTot}</p3>
+                    </div>
+                    <Doughnut data={liaData} options={options2}/>
+                </div>
+            )}
+        </div>
+    );
 }
 
 export default Welcome;
