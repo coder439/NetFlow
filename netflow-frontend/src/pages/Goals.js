@@ -10,6 +10,74 @@ function Goals() {
     const [transactions, setTransactions] = useState([])
     const [accounts, setAccounts] = useState([])
     const [loading, setLoading] = useState(true); // Add a loading state
+    const [assetGoals, setAssetGoals] = useState([]); // Initialize with empty array
+
+    const [expenseGoals, setExpenseGoals] = useState([]); // Initialize with empty array
+    const handleSelectCategory = (selectedCategory) => {
+        console.log(selectedCategory);
+        let selectedCategoryExpenseTotal = 0;
+    
+        transactions.forEach(transaction => {
+            // Check if the transaction's categories include the selected category
+            if (transaction.category.includes(selectedCategory)) {
+                selectedCategoryExpenseTotal += transaction.amount;
+            }
+        });
+        let newExpenseGoals = [
+            ...expenseGoals,
+            {
+                goalName: selectedCategory,
+                currentAmount: selectedCategoryExpenseTotal,
+                goalAmount: 300,
+                exceededColor: "danger"
+            }
+        ];
+    
+        setExpenseGoals(newExpenseGoals);
+    
+    };
+    const assetHandleSelectCategory = (selectedCategory) => {
+        console.log("huh")
+        console.log(accounts);
+        let color = "success"
+        let selectedCategoryAssetTotal = 0;
+    
+        accounts.forEach(account => {
+            // Check if the transaction's categories include the selected category
+            if (account.name === selectedCategory) {
+                selectedCategoryAssetTotal += account.balances.current;
+                if (account.type === "LOAN"){
+                    color = "danger"
+                }
+            }
+        });
+        let newAssetGoals = [
+            ...assetGoals,
+            {
+                goalName: selectedCategory,
+                currentAmount: selectedCategoryAssetTotal,
+                goalAmount: 300,
+                exceededColor: color
+            }
+        ];
+    
+        setAssetGoals(newAssetGoals);
+    
+    };
+    const handleRemoveGoal = (index) => {
+        setExpenseGoals(currentGoals => currentGoals.filter((_, idx) => idx !== index));
+    };
+    const handleRemoveAssetGoal = (index) => {
+        setAssetGoals(currentGoals => currentGoals.filter((_, idx) => idx !== index));
+    };
+    console.log("test")
+    console.log(accounts[0])
+    const assetNames = accounts.map(account => account["name"])
+    console.log(assetNames)
+    const categories = transactions.map(transaction => transaction["category"]);
+    const flattenedCategories = categories.flatMap(category => category);
+    // Remove duplicates from categories
+    const uniqueCategories = Array.from(new Set(flattenedCategories));
     async function getExpenses(){
         const url = "http://localhost:8080/transactionsInfo"; 
         const expenseData = await fetch(url)
@@ -33,6 +101,31 @@ function Goals() {
         }
         fetchData();
       }, []);
+          useEffect(() => {
+        if (transactions.length > 0) { // Check if transactions are loaded
+            setExpenseGoals([
+                {
+                    goalName: "Monthly Expenses",
+                    currentAmount: calculateMonthlyExpenses(),
+                    goalAmount: 2000,
+                    exceededColor: "danger"
+                }
+                // ... you can add more goals here if needed ...
+            ]);
+        }
+        if (accounts.length > 0) { // Check if transactions are loaded
+            setAssetGoals([
+                {
+                    goalName: "Net Worth",
+                    currentAmount: calculateNetWorth(),
+                    goalAmount: 10000,
+                    exceededColor: "success"
+                }
+                // ... you can add more goals here if needed ...
+            ]);
+        }
+
+    }, [transactions, accounts]); // Dependency on transactions
       function calculateNetWorth() {
         return accounts.reduce((total, account) => {
             // console.log(account)
@@ -57,20 +150,6 @@ function Goals() {
   return (
     <div className="Calendar">
       <header className="Calendar-header">
-          {/*
-need to display goals that already exist (defaults, and progress towards them. for example, 
-next power of 10 net worth, expenses should be below avg american 
-maybe can input age and calculate how much u should have saved up 
-another main part is that you need to be able to show the ability to create new goals 
-based off assets or expenses (grow this account to X, eliminate this account, maintain food expense below X
-i dont think graph of progress makes sense since we dont have that data, so deprioritize 
-every budget should be modifiable 
-
-create functions for net worth and overall expense volume, everything else should be button
-maybe time aspect for goals is important to do 
-) 
-)
-*/}
         <p>Goals</p>
         {loading ? (
         <div className="spinner-container"> {/* Use the container class here */}
@@ -81,24 +160,36 @@ maybe time aspect for goals is important to do
       ) : (
         <>
 <p style={{ fontSize: '3vh' }}>Savings Goals</p>
+<ExpensesDropdown categories={assetNames} onSelectCategory={assetHandleSelectCategory} inputTitle="Create New Asset Goal" />
 
-<FinancialGoalProgressBar 
-                goalName="Net Worth" 
-                currentAmount={calculateNetWorth()} 
-                initialGoalAmount={2000} 
-                exceededColor="success" // danger 
-            />
-            <p style={{ fontSize: '3vh' }}>Expenses Goals</p>
-    <FinancialGoalProgressBar 
-                    goalName="Monthly Expenses" 
-                    currentAmount={calculateMonthlyExpenses()} 
-                    initialGoalAmount={2000} 
-                    exceededColor="danger" // danger 
+{assetGoals.map((goal, index) => (
+                            <FinancialGoalProgressBar
+                                key={index}
+                                goalName={goal.goalName}
+                                currentAmount={goal.currentAmount}
+                                initialGoalAmount={goal.goalAmount}
+                                exceededColor={goal.exceededColor}
+                                onRemove={() => handleRemoveAssetGoal(index)}
+
+                            />
+                        ))}
+ <p style={{ fontSize: '3vh' }}>Expenses Goals</p>
+ <ExpensesDropdown categories={uniqueCategories} onSelectCategory={handleSelectCategory} inputTitle="Create New Expense Goal" />
+
+ {expenseGoals.map((goal, index) => (
+    <FinancialGoalProgressBar
+        key={index}
+        goalName={goal.goalName}
+        currentAmount={goal.currentAmount}
+        initialGoalAmount={goal.goalAmount}
+        exceededColor={goal.exceededColor}
+        onRemove={() => handleRemoveGoal(index)}
     />
-        </>
-      )}
-      </header>
-    </div>
+))}
+                    </>
+                )}
+            </header>
+        </div>
   );
 }
 

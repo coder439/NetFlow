@@ -57,7 +57,7 @@ return (
       </div>
       ) : (
         <>
-          <ExpensesDropdown categories={uniqueCategories} onSelectCategory={handleSelectCategory} />
+          <ExpensesDropdown categories={uniqueCategories} onSelectCategory={handleSelectCategory} inputTitle="Expense Category" />
           <div id='tabs-container'>
             {data}
           </div>
