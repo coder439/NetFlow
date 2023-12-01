@@ -1,5 +1,5 @@
 table {
-  width: 100%;
+  width: 75%;
   border-radius: 15px;
   margin:10px;
   background-color: #e3a871;
@@ -18,7 +18,7 @@ th {
 
 }
 td{
-  width: 33vw;
+  width: 33%;
 }
 table:hover{
   transform:scale(1.1);

@@ -23,10 +23,13 @@
 
 .Charts-right
 {
-    height: 45vh;
-    width: 45vw;
+    height: 80vh;
+    width: 70vw;
     display: inline-flex;
-
+    position:absolute;
+    border-radius: 25px;
+    /*background-color:darkgray;*/
+    left:0;
 }
 
 .Mid-text p3{
@@ -43,12 +46,12 @@
     /*background: #222;*/
     display:flex;
     flex-wrap: wrap;
-    order: 1;
-    margin: 10px;
-    text-align:center;
-    padding-bottom: 20px;
-    padding: 20px;
-    width:20vw;
+    order: 5;
+    width:auto;
+    height: 75%;
+    max-height: 75%;
+    max-width: 100%;
+    justify-content: space-evenly;
 }
 .container2{
     border-radius: 15px;
@@ -56,35 +59,45 @@
     display:flex;
     flex-wrap: wrap;
     order:0;
-    margin: 10px;
-    width: 18vw;
-    height: 80vh;
+    width: 92%;
+    margin:10px;
+    height: 98%;
     color:black;
+
 }
 .container2-1{
     border-radius: 15px;
     background: #ced9d1;
     margin: 10px;
-    padding-top:2vh;
-    padding-bottom: 2vh;
+    padding-top:5%;
+    padding-bottom: 5%;
     transition: transform 0.3s ease;
-    overflow:hidden;
     font-family: FreeMono, monospace;
     font-stretch: ultra-condensed;
-    font-size: large;
+    font-size:smaller;
     width: 95%;
+    max-height: 55%;
+
+}
+
+.container1-1{
+
+    max-width: 50%;
+}
+.container1-2{
+    /*background-color: white;*/
+    max-width: 50%;
 }
 .container2-1-1{
     border-radius: 15px;
     background: #eddec5;
-    margin: 10px;
+    margin-bottom: 10px;
     transition: transform 0.3s ease;
     overflow:hidden;
-    font-size:medium;
-    padding:10px;
+    font-size:smaller;
+    padding:5px;
     height:auto;
-    max-height: 10vh;
-    width:95%;
+    width:98%;
 }
 a:link{
     text-decoration: none!important;
@@ -95,22 +108,25 @@ a:link{
     background: #d3dded;
     display:flex;
     flex-wrap: wrap;
-    padding:37px;
+    padding:10px;
+    margin-top: 10px;
+    margin-bottom:10px;
     order:4;
     flex:3;
-    margin: 10px;
-    width: 40vw;
-    height:29vh;
+    max-width: 100%;
+    height:auto;
     color:black;
 }
 
 .container2-1:hover{
-    transform:scale(1.1);
+    transform:scale(1.05);
 }
 .flexwrapcolumn {
     display: flex;
     flex-direction: column;
-    height: 82vh;
+    height: 100%;
+    /*background-color: white;*/
+    width:80%;
 }
 .expand{
     transition: transform 0.3s ease;
@@ -119,4 +135,9 @@ a:link{
     transform:scale(1.05);
 }
 
+.container4{
+    display:flex;
+    width:80%;
+    margin:10px;
+}
 

@@ -25,13 +25,13 @@ const FinancialGoalProgressBar = ({ key, goalName, currentAmount, initialGoalAmo
             <div>
                 Current Amount: ${currentAmount.toFixed(2)} / 
                 Goal Amount: $
-                <input 
+                <input style={{paddingleft:'100px', borderRadius:'15px', opacity:'75%',border:'none', color:'gray'}}
                     type="number" 
                     value={goalAmount} 
                     onChange={handleGoalAmountChange}
                     min="0"
                 />
-                <button onClick={() => onRemove(key)}>X</button>
+                <button style={{borderRadius:'50%',border:'none'}}onClick={() => onRemove(key)}>X</button>
                 <Button variant="primary" onClick={() => onDetails(goalName)}>Details</Button>
 
             </div>

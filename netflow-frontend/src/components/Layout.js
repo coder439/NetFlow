@@ -24,42 +24,42 @@ function Layout() {
                   <Link to="/"
                      className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
                       <img src={logo} className="App-logo" alt="logo" style={{width:'25',height:'25'}}/>
-                      <div className="Name"><b>NetFlow</b></div>
+                      <div className="Name" style={{fontSize:'large'}}><b>NetFlow</b></div>
                   </Link>
-                  <hr></hr>
+                  <hr style={{color:'white'}}></hr>
                       <ul className="nav nav-pills flex-column mb-auto">
                           <li className="nav-item">
-                              <Link to="/" className="nav-link link-body-emphasis">
+                              <Link to="/" className="nav-link link-body-emphasis expand">
                                   <img class='less' src={homeImg} width="25" height="25" style={{marginRight:'5px'}}/>
                                   Welcome
                               </Link>
                           </li>
                           <li>
-                              <Link to="/Welcome" className="nav-link link-body-emphasis">
+                              <Link to="/Welcome" className="nav-link link-body-emphasis expand">
                                   <img class='less' src={dashboard} width="25" height="25" style={{marginRight:'5px'}}/>
                                   Dashboard
                               </Link>
                           </li>
                           <li>
-                              <Link to="/Expenses" className="nav-link link-body-emphasis">
+                              <Link to="/Expenses" className="nav-link link-body-emphasis expand">
                                   <img class='less' src={expenses} width="25" height="25" style={{marginRight:'5px'}}/>
                                   Expenses
                               </Link>
                           </li>
                           <li>
-                              <Link to="/Calculator" className="nav-link link-body-emphasis">
+                              <Link to="/Calculator" className="nav-link link-body-emphasis expand">
                                   <img class='less' src={calculator} width="25" height="25" style={{marginRight:'5px'}}/>
                                   Calculator
                               </Link>
                           </li>
                           <li>
-                              <Link to="/Goals" className="nav-link link-body-emphasis">
+                              <Link to="/Goals" className="nav-link link-body-emphasis expand">
                                   <img class='less' src={goals} width="25" height="25" style={{marginRight:'5px'}}/>
                                   Goals
                               </Link>
                           </li>
                       </ul>
-                  <hr></hr>
+                  <hr style={{color:'white'}}></hr>
               </div>
           </ul>
         </nav>

@@ -229,10 +229,14 @@ function Goals() {
       </div>
       ) : (
         <>
+
+            <div className='container1' style={{borderRadius:'15px', backgroundColor:'#d3dded', height:'80vh', width:'50vw', margin:'20px', overflowY:'auto'}}>
+                <div className='1st' style={{top:'13%'}}>
 <p style={{ fontSize: '3vh' }}>Savings Goals</p>
 <ExpensesDropdown categories={assetNames} onSelectCategory={assetHandleSelectCategory} inputTitle="Create New Asset Goal" />
-
+                <hr></hr>
 {assetGoals.map((goal, index) => (
+    <div className='expand' style={{borderRadius:'15px', backgroundColor:'#82f071'}}>
                             <FinancialGoalProgressBar
                                 key={index}
                                 goalName={goal.goalName}
@@ -244,11 +248,14 @@ function Goals() {
 
 
                             />
-                        ))}
- <p style={{ fontSize: '3vh' }}>Expenses Goals</p>
+    </div>
+                        ))} </div><br/>
+                <div className='2nd' style={{top:'55%'}}>
+ <p style={{ fontSize: '3vh' , position:'relative'}}>Expenses Goals</p>
  <ExpensesDropdown categories={uniqueCategories} onSelectCategory={handleSelectCategory} inputTitle="Create New Expense Goal" />
-
+                <hr></hr>
  {expenseGoals.map((goal, index) => (
+     <div className='expand'  style={{borderRadius:'15px', backgroundColor:'#f26374'}}>
     <FinancialGoalProgressBar
         key={index}
         goalName={goal.goalName}
@@ -259,7 +266,9 @@ function Goals() {
         onDetails={() => handleShow(goal.goalName, "expense")}
 
     />
-))}
+     </div>
+))}</div>
+            </div>
                     </>
                 )}
                 <Modal show={show} onHide={handleClose}>
@@ -270,6 +279,7 @@ function Goals() {
                     <Line data={lineData} />
                 </Modal.Body>
             </Modal>
+
             </header>
         </div>
   );

@@ -9,6 +9,7 @@ import {Pie} from 'react-chartjs-2';
 import { Doughnut } from 'react-chartjs-2';
 import Spinner from 'react-bootstrap/Spinner';
 import FinancialGoalProgressBar from '../components/FinancialGoalProgressBar';
+import ExpenseTab from "../components/expenseTab";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 Chart.register(Title);
@@ -56,7 +57,7 @@ function Welcome() {
                 }
                 lastTransactions.push([transaction.name, category, transaction.amount, transaction.date]);
             });
-            setLastTransactions([lastTransactions[lastTransactions.length-3], lastTransactions[lastTransactions.length-2], lastTransactions[lastTransactions.length-1]]);
+            setLastTransactions([lastTransactions[0], lastTransactions[1], lastTransactions[2]]);
             setHashmap(updatedHashmap);
             console.log(finallastTransactions);
             const responseData = expenseData;
@@ -64,11 +65,12 @@ function Welcome() {
             let liaParagraphs = [];
             let liaLabels = [];
             let labels = [];
-    
+            let accs = [];
             let localATot = 0;
             let localLTot = 0;
     
             if (responseData) {
+                console.log(responseData.accounts.entries);
                 setAccounts(responseData.accounts);
                 try {
                     responseData.accounts.forEach(account => {
@@ -81,6 +83,7 @@ function Welcome() {
                             labels.push(account.name);
                             localATot += account.balances.current;
                         }
+
                     });
                 } catch (error) {
                     console.error('Error parsing JSON:', error);
@@ -244,12 +247,14 @@ function Welcome() {
             }
         ]
     }
-
+    const acccs = accounts.map((account, index) => (
+        <div className='expand' style={{borderRadius:'15px', width:'100%', margin:'5px', backgroundColor:'#d3dded', height:'10%', fontSize:'smaller'}}>{account.name}<br/>${account.balances.current}</div>
+    ));
 
     return (
         <div className="Welcome">
             <header className="Welcome-header">
-                <p style={{color:'white'}}>Dashboard</p>
+                <p style={{color:'#d3dded', textShadow:'0 0 1', marginTop:'10px'}}>Dashboard</p>
             </header>
             {loading ? (
                 <div className="spinner-container">
@@ -261,14 +266,13 @@ function Welcome() {
                 <div className='Charts-right'>
                 <a href="/Expenses">
                     <div className='container2 expand'>
-                        <Doughnut className='expand' data={expensesData} options={options3}/>
+                        <Doughnut className='expand' data={expensesData} options={options3} style={{maxHeight:'40%'}}/>
                             <div className='container2-1'>
                                 <p2 style={{textDecoration:'None', color:'inherit'}}><b>Most Recent Expenses</b></p2>
                                 <hr></hr>
                                 <div className='container2-1-1 expand'>
-                                    <div className='' style={{height:'7vh'}}>
-                                        <p3 style={{left:'0'}}><b>{finallastTransactions[0][0]}</b></p3><br/>
-                                        <hr></hr>
+                                    <div className=''>
+                                        <p3 style={{left:'0', overflow:'hidden'}}><b>{finallastTransactions[0][0]}</b></p3><br/>
                                         <div className='date&amt' style={{display:'flex', justifyContent: 'space-between'}}>
                                             <p3 style={{color:'red'}}><b>${finallastTransactions[0][2]}</b></p3>
                                             <p3 style={{opacity:'50%'}}><b>{finallastTransactions[0][3]}</b></p3>
@@ -276,9 +280,8 @@ function Welcome() {
                                     </div>
                                 </div>
                                 <div className='container2-1-1 expand'>
-                                    <div className='' style={{height:'7vh'}}>
+                                    <div className=''>
                                         <p3 style={{left:'0'}}><b>{finallastTransactions[1][0]}</b></p3><br/>
-                                        <hr></hr>
                                         <div className='date&amt' style={{display:'flex', justifyContent: 'space-between'}}>
                                             <p3 style={{color:'red'}}><b>${finallastTransactions[1][2]}</b></p3>
                                             <p3 style={{opacity:'50%'}}><b>{finallastTransactions[1][3]}</b></p3>
@@ -286,49 +289,53 @@ function Welcome() {
                                     </div>
                                 </div>
                                 <div className='container2-1-1 expand'>
-                                    <div className='' style={{height:'7vh'}}>
+                                    <div className=''>
                                         <p3 style={{left:'0'}}><b>{finallastTransactions[2][0]}</b></p3><br/>
-                                        <hr></hr>
                                         <div className='date&amt' style={{display:'flex', justifyContent: 'space-between'}}>
                                             <p3 style={{color:'red'}}><b>${finallastTransactions[2][2]}</b></p3>
                                             <p3 style={{opacity:'50%'}}><b>{finallastTransactions[2][3]}</b></p3>
                                         </div>
                                     </div>
                                 </div>
+                                <hr></hr>
                             </div>
                     </div>
                 </a>
                 <div className='flexwrapcolumn'>
 
                     <div className='container1 expand'>
-                        <Doughnut className='expand' style={{maxHeight:'20vh', color:'white'}} data={data} options={options}/>
+                        <div className='container1-1' style={{display:'flex'}}>
+                        <Doughnut className='expand' style={{maxHeight:'45vh', color:'white'}} data={data} options={options}/>
+                        </div>
+                        <div className='container1-2' style={{display:'flex'}}>
+                        <Doughnut className='expand' style={{maxHeight:'45vh'}} data={liaData} options={options2}/>
+                        </div>
                         <div className='Mid-text'>
                             <p3 style={{color: 'green'}}>Assets: ${aTot} </p3>
                             <p3 style={{color: '#F41212'}}>Liabilities: ${lTot} </p3>
                             <p3>Net Worth: ${aTot - lTot} </p3>
                         </div>
-                        <Doughnut className='expand' style={{maxHeight:'20vh'}} data={liaData} options={options2}/>
+
                     </div>
                     <a href='/Goals'>
                     <div className='container3 expand'>
-                        <p style={{ fontSize: '2vh' }}>Savings Goals</p>
-                        <FinancialGoalProgressBar
-                            goalName="Net Worth"
-                            currentAmount={calculateNetWorth()}
-                            initialGoalAmount={2000}
-                            exceededColor="success" // danger
-                        />
-                        <p style={{ fontSize: '2vh' }}>Expenses Goals</p>
+
+                        <p style={{ fontSize: '2%' }}>Expenses Goals</p>
                         <FinancialGoalProgressBar
                             goalName="Monthly Expenses"
                             currentAmount={calculateMonthlyExpenses()}
                             initialGoalAmount={2000}
                             exceededColor="danger" // danger
+                            style={{borderRadius:'15px', opacity:'33%'}}
                         />
                     </div>
                     </a>
                 </div>
+                <div className='container4'>
 
+                    <b style={{width:'100%'}}>{acccs}</b>
+
+                </div>
                 </div>
             )}
         </div>
