@@ -1,12 +1,12 @@
 table {
-  width: 100vw;
+  width: 100%;
+  border-radius: 15px;
+  margin:10px;
+  background-color: #e3a871;
   border-collapse: collapse;
-  border-radius:0 0 50px 50px;
-  background-color: orange;
-  margin-bottom: 20px;
-  border: 50px;
+  overflow-x:hidden;
+  border: 20px;
   border-color: black;
-  align-items: center;
 }
 
 th {
@@ -15,10 +15,15 @@ th {
   padding-top: 20px;
   padding-bottom: 20px;
   text-align: center;
-  
+
 }
 td{
-  width: 34vw;
+  width: 33vw;
+}
+table:hover{
+  transform:scale(1.1);
+  border-radius: inherit;
+
 }
 .expenses{
   

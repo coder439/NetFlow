@@ -150,10 +150,10 @@ function Goals() {
   return (
     <div className="Calendar">
       <header className="Calendar-header">
-        <p>Goals</p>
+        <p style={{color:'white'}}>Goals</p>
         {loading ? (
         <div className="spinner-container"> {/* Use the container class here */}
-        <Spinner animation="border" role="status">
+        <Spinner animation="border" role="status" style={{backgroundColor:'white'}}>
           <span className="visually-hidden">Loading...</span>
         </Spinner>
       </div>
