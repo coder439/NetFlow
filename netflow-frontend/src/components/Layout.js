@@ -18,43 +18,43 @@ function Layout() {
       <header className="Layout-header">
         <nav>
           <ul>
-              <div id="myTabsContainer" className="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style={{height:'97vh',width: '17vw', display: 'flex',
-                                                                                                                    backgroundColor:'#212529', overflowY:'hidden'
+              <div id="myTabsContainer" className="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style={{height:'98vh',width: '17vw', display: 'flex',
+                                                                                                                    backgroundColor:'#212529', overflowY:'hidden', overflowX:'hidden'
               }}>
                   <Link to="/"
                      className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-                      <img src={logo} className="App-logo" alt="logo" style={{width:'5vw',height:'10vh'}}/>
+                      <img src={logo} className="App-logo" alt="logo" style={{width:'25',height:'25'}}/>
                       <div className="Name"><b>NetFlow</b></div>
                   </Link>
                   <hr></hr>
                       <ul className="nav nav-pills flex-column mb-auto">
                           <li className="nav-item">
                               <Link to="/" className="nav-link link-body-emphasis">
-                                  <img class='less' src={homeImg} width="25" height="25" style={{padding:'5px'}}/>
+                                  <img class='less' src={homeImg} width="25" height="25" style={{marginRight:'5px'}}/>
                                   Welcome
                               </Link>
                           </li>
                           <li>
                               <Link to="/Welcome" className="nav-link link-body-emphasis">
-                                  <img class='less' src={dashboard} width="25" height="25" style={{padding:'5px'}}/>
+                                  <img class='less' src={dashboard} width="25" height="25" style={{marginRight:'5px'}}/>
                                   Dashboard
                               </Link>
                           </li>
                           <li>
                               <Link to="/Expenses" className="nav-link link-body-emphasis">
-                                  <img class='less' src={expenses} width="25" height="25" style={{padding:'5px'}}/>
+                                  <img class='less' src={expenses} width="25" height="25" style={{marginRight:'5px'}}/>
                                   Expenses
                               </Link>
                           </li>
                           <li>
                               <Link to="/Calculator" className="nav-link link-body-emphasis">
-                                  <img class='less' src={calculator} width="25" height="25" style={{padding:'5px'}}/>
+                                  <img class='less' src={calculator} width="25" height="25" style={{marginRight:'5px'}}/>
                                   Calculator
                               </Link>
                           </li>
                           <li>
                               <Link to="/Goals" className="nav-link link-body-emphasis">
-                                  <img class='less' src={goals} width="25" height="25" style={{padding:'5px'}}/>
+                                  <img class='less' src={goals} width="25" height="25" style={{marginRight:'5px'}}/>
                                   Goals
                               </Link>
                           </li>
