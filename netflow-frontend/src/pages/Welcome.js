@@ -253,7 +253,7 @@ function Welcome() {
             </header>
             {loading ? (
                 <div className="spinner-container">
-                    <Spinner animation="border" role="status">
+                    <Spinner animation="border" role="status" style={{backgroundColor:'white'}}>
                         <span className="visually-hidden">Loading...</span>
                     </Spinner>
                 </div>

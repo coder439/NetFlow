@@ -50,21 +50,21 @@ const data = dataToRender.map((transaction, index) => (
 ));
 
 return (
-  <div className="Expenses">
+  <div className="Expenses" style={{color:'white'}}>
     <header className="Expenses-header">
       <p id='title'>Expenses</p>
 
       {loading ? (
         <div className="spinner-container"> {/* Use the container class here */}
-        <Spinner animation="border" role="status">
+        <Spinner animation="border" role="status" style={{backgroundColor:'white'}}>
           <span className="visually-hidden">Loading...</span>
         </Spinner>
       </div>
       ) : (
         <>
-          <ExpensesDropdown categories={uniqueCategories} onSelectCategory={handleSelectCategory} inputTitle="Expense Category" />
-          <div id='tabs-container'>
-            {data}
+          <ExpensesDropdown categories={uniqueCategories} onSelectCategory={handleSelectCategory} inputTitle="Expense Category"/>
+          <div id='tabs-container' style={{color:'black', fontSize:'medium'}}>
+            <b>{data}</b>
           </div>
         </>
       )}
