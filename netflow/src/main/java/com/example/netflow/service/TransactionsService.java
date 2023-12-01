@@ -43,7 +43,7 @@ public class TransactionsService {
         try {
             // Sleep for 3 seconds, increase these if neccessary 
             System.out.println("Sleeping for 3 seconds...");
-            Thread.sleep(3000);
+            Thread.sleep(5000);
             System.out.println("Woke up!");
         } catch (InterruptedException e) {
             // This block is executed if the sleep is interrupted
