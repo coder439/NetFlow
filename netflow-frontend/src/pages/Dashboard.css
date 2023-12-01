@@ -5,9 +5,12 @@ html {
 .Dashboard { /* app is going to be synonymous with homepage*/
   border-radius: 25px;
   background: #d3dded;
+  background-image: url("homepagebg.svg");
   padding: 20px;
   margin:8%;
-  padding-bottom: 7%;
+  height:70vh;
+  padding-top:10vh;
+  place-items: center;
 }
 
 .App-logo{

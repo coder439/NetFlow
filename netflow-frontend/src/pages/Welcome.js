@@ -4,7 +4,7 @@ import logo from '../logo.svg';
 import './Welcome.css';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import {Chart, Title} from 'chart.js';
-
+import { Outlet, Link } from "react-router-dom";
 import {Pie} from 'react-chartjs-2';
 import { Doughnut } from 'react-chartjs-2';
 import Spinner from 'react-bootstrap/Spinner';
@@ -259,24 +259,47 @@ function Welcome() {
                 </div>
             ) : (
                 <div className='Charts-right'>
-
+                <a href="/Expenses">
                     <div className='container2 expand'>
                         <Doughnut className='expand' data={expensesData} options={options3}/>
                             <div className='container2-1'>
-                                <p2><b>Most Recent Expenses</b></p2>
+                                <p2 style={{textDecoration:'None', color:'inherit'}}><b>Most Recent Expenses</b></p2>
                                 <hr></hr>
                                 <div className='container2-1-1 expand'>
-                                    <p3><b>{finallastTransactions[0]}</b></p3>
+                                    <div className='' style={{height:'7vh'}}>
+                                        <p3 style={{left:'0'}}><b>{finallastTransactions[0][0]}</b></p3><br/>
+                                        <hr></hr>
+                                        <div className='date&amt' style={{display:'flex', justifyContent: 'space-between'}}>
+                                            <p3 style={{color:'red'}}><b>${finallastTransactions[0][2]}</b></p3>
+                                            <p3 style={{opacity:'50%'}}><b>{finallastTransactions[0][3]}</b></p3>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className='container2-1-1 expand'>
-                                    <p3><b>{finallastTransactions[1]}</b></p3>
+                                    <div className='' style={{height:'7vh'}}>
+                                        <p3 style={{left:'0'}}><b>{finallastTransactions[1][0]}</b></p3><br/>
+                                        <hr></hr>
+                                        <div className='date&amt' style={{display:'flex', justifyContent: 'space-between'}}>
+                                            <p3 style={{color:'red'}}><b>${finallastTransactions[1][2]}</b></p3>
+                                            <p3 style={{opacity:'50%'}}><b>{finallastTransactions[1][3]}</b></p3>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className='container2-1-1 expand'>
-                                    <p3><b>{finallastTransactions[2]}</b></p3>
+                                    <div className='' style={{height:'7vh'}}>
+                                        <p3 style={{left:'0'}}><b>{finallastTransactions[2][0]}</b></p3><br/>
+                                        <hr></hr>
+                                        <div className='date&amt' style={{display:'flex', justifyContent: 'space-between'}}>
+                                            <p3 style={{color:'red'}}><b>${finallastTransactions[2][2]}</b></p3>
+                                            <p3 style={{opacity:'50%'}}><b>{finallastTransactions[2][3]}</b></p3>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                     </div>
+                </a>
                 <div className='flexwrapcolumn'>
+
                     <div className='container1 expand'>
                         <Doughnut className='expand' style={{maxHeight:'20vh', color:'white'}} data={data} options={options}/>
                         <div className='Mid-text'>
@@ -286,6 +309,7 @@ function Welcome() {
                         </div>
                         <Doughnut className='expand' style={{maxHeight:'20vh'}} data={liaData} options={options2}/>
                     </div>
+                    <a href='/Goals'>
                     <div className='container3 expand'>
                         <p style={{ fontSize: '2vh' }}>Savings Goals</p>
                         <FinancialGoalProgressBar
@@ -302,6 +326,7 @@ function Welcome() {
                             exceededColor="danger" // danger
                         />
                     </div>
+                    </a>
                 </div>
 
                 </div>
