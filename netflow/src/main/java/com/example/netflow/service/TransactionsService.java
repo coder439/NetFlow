@@ -49,8 +49,8 @@ public class TransactionsService {
             // This block is executed if the sleep is interrupted
             e.printStackTrace();
         }
-        LocalDate startDate = LocalDate.now().minusDays(10);
-        LocalDate endDate = LocalDate.now();
+        LocalDate startDate = LocalDate.of(2023, 11, 1);
+        LocalDate endDate = LocalDate.of(2023, 12, 1);
         // Pull transactions for a date range
         TransactionsGetRequest request = new TransactionsGetRequest()
         .accessToken(accessToken)

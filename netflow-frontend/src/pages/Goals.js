@@ -5,14 +5,82 @@ import './Calendar.css';
 import ExpensesDropdown from '../components/ExpensesDropdown';
 import Spinner from 'react-bootstrap/Spinner';
 import FinancialGoalProgressBar from '../components/FinancialGoalProgressBar';
-
+import Modal from 'react-bootstrap/Modal';
+import { Line } from 'react-chartjs-2';
+import { Chart as ChartJS } from 'chart.js/auto';
 function Goals() {
     const [transactions, setTransactions] = useState([])
     const [accounts, setAccounts] = useState([])
     const [loading, setLoading] = useState(true); // Add a loading state
     const [assetGoals, setAssetGoals] = useState([]); // Initialize with empty array
+    const [show, setShow] = useState(false);
+    const [lineData, setLineData] = useState({});
 
     const [expenseGoals, setExpenseGoals] = useState([]); // Initialize with empty array
+    const expensesOverTimeData = {
+        "Payment": [2500, 2200, 2300, 2400, 2103],
+        "Credit Card": [30, 40, 35, 28, 25],
+        "Travel": [200, 150, 120, 90, 11.73],
+        "Taxi": [15, 12, 10, 13, 11.73],
+        "Transfer": [7000, 6800, 6900, 6950, 6845.78],
+        "Debit": [6000, 5800, 5600, 5500, 5850],
+        "Deposit": [1200, 1100, 1000, 900, 1000],
+        "Recreation": [80, 85, 90, 75, 78.50],
+        "Gyms and Fitness Centers": [100, 90, 80, 70, 78.50],
+        "Airlines and Aviation Services": [0, 0, 0, 0, 0],
+        "Food and Drink": [1200, 1300, 1150, 1120, 1105.73],
+        "Restaurants": [1200, 1300, 1150, 1120, 1105.73],
+        "Fast Food": [500, 550, 520, 510, 512],
+        "Coffee Shop": [5, 6, 4.5, 4, 4.33],
+        "Payroll": [-5, -6, -4, -3, -4.22],
+        "Monthly Expenses": [11000, 10800, 10700, 10600, 10645.24],
+        "Shops": [600, 550, 520, 510, 500],
+        "Sporting Goods": [550, 600, 450, 400, 500]
+    };
+    const assetsOverTimeData = {
+        "Net Worth": [-55000, -54000, -53000, -52800, -52681.32],
+        "Plaid Checking": [100, 105, 108, 112, 110],
+        "Plaid Saving": [190, 200, 205, 208, 210], 
+        "Plaid CD": [280, 290, 295, 298, 300],
+        "Plaid Credit Card": [400, 405, 408, 412, 410],
+        "Plaid Money Market": [43000, 43100, 43150, 43180, 43200],
+        "Plaid IRA": [300, 310, 315, 318, 320.76],
+        "Plaid 401k": [23000, 23200, 23400, 23500, 23631.98],
+        "Plaid Student Loan": [66000, 65800, 65500, 65300, 65262.00],
+        "Plaid Mortgage": [56500, 56400, 56350, 56310, 56302.06]
+    };
+    
+    
+    
+    const handleShow = (goalName, identifier) => {
+        // Assuming you have a function to fetch or generate data for the line graph
+        const dataForGraph = getGraphData(goalName, identifier);
+        setLineData(dataForGraph);
+        setShow(true);
+    };
+    const handleClose = () => setShow(false);
+
+    const getGraphData = (goalName, identifier) => {
+        console.log("huh " + goalName + " " +  identifier)
+        let thisData = []
+        if (identifier === "asset"){
+            thisData = [... assetsOverTimeData[goalName]]
+        }
+        else if (identifier === "expense"){
+            thisData = [...expensesOverTimeData[goalName]]
+            console.log("test print")
+        }
+        return {
+            labels: [ 'July', 'August', 'September', 'October', 'November'],
+            datasets: [{
+                label: goalName,
+                data: thisData,
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+        };
+    };
     const handleSelectCategory = (selectedCategory) => {
         console.log(selectedCategory);
         let selectedCategoryExpenseTotal = 0;
@@ -78,6 +146,8 @@ function Goals() {
     const flattenedCategories = categories.flatMap(category => category);
     // Remove duplicates from categories
     const uniqueCategories = Array.from(new Set(flattenedCategories));
+    console.log("plz")
+    console.log(uniqueCategories)
     async function getExpenses(){
         const url = "http://localhost:8080/transactionsInfo"; 
         const expenseData = await fetch(url)
@@ -170,6 +240,8 @@ function Goals() {
                                 initialGoalAmount={goal.goalAmount}
                                 exceededColor={goal.exceededColor}
                                 onRemove={() => handleRemoveAssetGoal(index)}
+                                onDetails={() => handleShow(goal.goalName, "asset")}
+
 
                             />
                         ))}
@@ -184,10 +256,20 @@ function Goals() {
         initialGoalAmount={goal.goalAmount}
         exceededColor={goal.exceededColor}
         onRemove={() => handleRemoveGoal(index)}
+        onDetails={() => handleShow(goal.goalName, "expense")}
+
     />
 ))}
                     </>
                 )}
+                <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>5 Month Progress</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Line data={lineData} />
+                </Modal.Body>
+            </Modal>
             </header>
         </div>
   );

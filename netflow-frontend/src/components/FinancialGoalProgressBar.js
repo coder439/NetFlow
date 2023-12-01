@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { ProgressBar } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
 
-const FinancialGoalProgressBar = ({ key, goalName, currentAmount, initialGoalAmount,exceededColor, onRemove }) => {
+const FinancialGoalProgressBar = ({ key, goalName, currentAmount, initialGoalAmount,exceededColor, onRemove, onDetails }) => {
     // State for editable goal amount
     const [goalAmount, setGoalAmount] = useState(initialGoalAmount);
 
@@ -31,6 +32,7 @@ const FinancialGoalProgressBar = ({ key, goalName, currentAmount, initialGoalAmo
                     min="0"
                 />
                 <button onClick={() => onRemove(key)}>X</button>
+                <Button variant="primary" onClick={() => onDetails(goalName)}>Details</Button>
 
             </div>
         </div>
