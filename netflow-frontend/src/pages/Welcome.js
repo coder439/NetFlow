@@ -266,7 +266,7 @@ function Welcome() {
                 <div className='Charts-right'>
                 <a href="/Expenses">
                     <div className='container2 expand'>
-                        <Doughnut className='expand' data={expensesData} options={options3} style={{maxHeight:'100%'}}/>
+                        <Doughnut className='expand' data={expensesData} options={options3} style={{maxHeight:'40%'}}/>
                             <div className='container2-1'>
                                 <p2 style={{textDecoration:'None', color:'inherit'}}><b>Most Recent Expenses</b></p2>
                                 <hr></hr>
