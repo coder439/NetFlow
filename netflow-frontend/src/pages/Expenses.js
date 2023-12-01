@@ -11,6 +11,10 @@ function Expenses() {
   const [filteredTransactions, setFilteredTransactions] = useState([]);
   const [loading, setLoading] = useState(true); // Add a loading state
   const handleSelectCategory = (selectedCategory) => {
+    if (selectedCategory === "All"){
+      setFilteredTransactions(transactions)
+      return
+    }
     const filtered = transactions.filter(transaction => 
       transaction.category.includes(selectedCategory)
     );
@@ -34,7 +38,8 @@ function Expenses() {
   const categories = transactions.map(transaction => transaction["category"]);
   const flattenedCategories = categories.flatMap(category => category);
   // Remove duplicates from categories
-  const uniqueCategories = Array.from(new Set(flattenedCategories));
+  let uniqueCategories = Array.from(new Set(flattenedCategories));
+  uniqueCategories = ["All", ... uniqueCategories]
   const dataToRender = filteredTransactions.length > 0 ? filteredTransactions : transactions;
 
 console.log("test")
