@@ -80,20 +80,20 @@ maybe time aspect for goals is important to do
       </div>
       ) : (
         <>
-<p style={{ fontSize: '3vh' }}>Savings Goals</p>
+    <p style={{ fontSize: '3vh' }}>Savings Goals</p>
 
-<FinancialGoalProgressBar 
-                goalName="Net Worth" 
-                currentAmount={calculateNetWorth()} 
-                initialGoalAmount={2000} 
-                exceededColor="success" // danger 
-            />
-            <p style={{ fontSize: '3vh' }}>Expenses Goals</p>
+    <FinancialGoalProgressBar
+        goalName="Net Worth"
+        currentAmount={calculateNetWorth()}
+        initialGoalAmount={2000}
+        exceededColor="success" // danger
+    />
+    <p style={{ fontSize: '3vh' }}>Expenses Goals</p>
     <FinancialGoalProgressBar 
-                    goalName="Monthly Expenses" 
-                    currentAmount={calculateMonthlyExpenses()} 
-                    initialGoalAmount={2000} 
-                    exceededColor="danger" // danger 
+        goalName="Monthly Expenses"
+        currentAmount={calculateMonthlyExpenses()}
+        initialGoalAmount={2000}
+        exceededColor="danger" // danger
     />
         </>
       )}

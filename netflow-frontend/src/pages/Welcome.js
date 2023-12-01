@@ -8,6 +8,7 @@ import {Chart, Title} from 'chart.js';
 import {Pie} from 'react-chartjs-2';
 import { Doughnut } from 'react-chartjs-2';
 import Spinner from 'react-bootstrap/Spinner';
+import FinancialGoalProgressBar from '../components/FinancialGoalProgressBar';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 Chart.register(Title);
@@ -19,6 +20,7 @@ function Welcome() {
     const [liaResponseData, setLiaResponseData] = useState(null);
     const [loading, setLoading] = useState(true); // Add a loading state
     const [transactions, setTransactions] = useState([])
+    const [accounts, setAccounts] = useState([])
     const [categories, setCategories] = useState(["Payment", "Travel", "Transfer", "Recreation", "Food and Drink"])
     const [hashmap, setHashmap] = useState({"Payment": 0, "Travel": 0, "Transfer": 0, "Recreation": 0, "Food and Drink": 0})
     async function getExpenses(){
@@ -33,13 +35,14 @@ function Welcome() {
     let [aTot, setATot] = useState(null);
     let [lTot, setLTot] = useState(null);
 
-
+    const [finallastTransactions,setLastTransactions] = useState([]);
     const fetchData = async () => {
         try {
             setLoading(true);
     
             // Fetch expenses data
             const expenseData = await getExpenses();
+            const lastTransactions = [];
             setTransactions(expenseData["transactions"]);
     
             // Update categories hashmap
@@ -51,9 +54,11 @@ function Welcome() {
                 } else {
                     updatedHashmap[category] = transaction.amount;
                 }
+                lastTransactions.push([transaction.name, category, transaction.amount, transaction.date]);
             });
+            setLastTransactions([lastTransactions[lastTransactions.length-3], lastTransactions[lastTransactions.length-2], lastTransactions[lastTransactions.length-1]]);
             setHashmap(updatedHashmap);
-    
+            console.log(finallastTransactions);
             const responseData = expenseData;
             let paragraphs = [];
             let liaParagraphs = [];
@@ -64,6 +69,7 @@ function Welcome() {
             let localLTot = 0;
     
             if (responseData) {
+                setAccounts(responseData.accounts);
                 try {
                     responseData.accounts.forEach(account => {
                         if (account.type == "LOAN") {
@@ -92,14 +98,34 @@ function Welcome() {
             setLoading(false);
         }
     };
-    
+
 
     useEffect(() => {
         fetchData();
     }, []); // Empty dependency array ensures this runs once after the component mounts
+    console.log(finallastTransactions);
+    function calculateNetWorth() {
+        return accounts.reduce((total, account) => {
+            // console.log(account)
+            // Check if the account type is "LOAN"
+            if (account.type === "LOAN") {
+                // Subtract the balance for loans
+                return total - account.balances.current;
+            } else {
+                // Add the balance for other account types
+                return total + account.balances.current;
+            }
+        }, 0);
+    }
+    function calculateMonthlyExpenses() {
+        return transactions.reduce((total, transaction) => {
+            return total + transaction.amount
+        }, 0);
+    }
 
-    console.log(categories)
-    console.log(Object.values(hashmap))
+
+
+
     const expensesData = {
 
         labels:categories,
@@ -109,7 +135,7 @@ function Welcome() {
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(55, 206, 86, 0.2)',
                     'rgba(75, 192, 192, 0.2)',
                     'rgba(153, 102, 255, 0.2)',
                     'rgba(255, 159, 64, 0.2)',
@@ -117,7 +143,7 @@ function Welcome() {
                 borderColor: [
                     'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
+                    'rgba(55, 206, 86, 1)',
                     'rgba(75, 192, 192, 1)',
                     'rgba(153, 102, 255, 1)',
                     'rgba(255, 159, 64, 1)',
@@ -137,7 +163,7 @@ function Welcome() {
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(55, 206, 86, 0.2)',
                     'rgba(75, 192, 192, 0.2)',
                     'rgba(153, 102, 255, 0.2)',
                     'rgba(255, 159, 64, 0.2)',
@@ -145,7 +171,7 @@ function Welcome() {
                 borderColor: [
                     'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
+                    'rgba(55, 206, 86, 1)',
                     'rgba(75, 192, 192, 1)',
                     'rgba(153, 102, 255, 1)',
                     'rgba(255, 159, 64, 1)',
@@ -219,22 +245,11 @@ function Welcome() {
         ]
     }
 
-    useEffect(() => {
-        let isMounted = true;
-
-        if (isMounted) {
-            fetchData();
-        }
-
-        return () => {
-            isMounted = false;
-        };
-    }, []);
 
     return (
         <div className="Welcome">
             <header className="Welcome-header">
-                <p>Dashboard</p>
+                <p style={{color:'white'}}>Dashboard</p>
             </header>
             {loading ? (
                 <div className="spinner-container">
@@ -244,14 +259,50 @@ function Welcome() {
                 </div>
             ) : (
                 <div className='Charts-right'>
-                    <Doughnut data={data} options={options}/>
-                    <div className='Mid-text'>
-                        <p3 style={{color: 'green'}}>Assets: ${aTot}</p3>
-                        <p3 style={{color: '#F41212'}}>Liabilities: ${lTot}</p3>
-                        <p3>Net Worth: ${aTot - lTot}</p3>
+
+                    <div className='container2 expand'>
+                        <Doughnut className='expand' data={expensesData} options={options3}/>
+                            <div className='container2-1'>
+                                <p2><b>Most Recent Expenses</b></p2>
+                                <hr></hr>
+                                <div className='container2-1-1 expand'>
+                                    <p3><b>{finallastTransactions[0]}</b></p3>
+                                </div>
+                                <div className='container2-1-1 expand'>
+                                    <p3><b>{finallastTransactions[1]}</b></p3>
+                                </div>
+                                <div className='container2-1-1 expand'>
+                                    <p3><b>{finallastTransactions[2]}</b></p3>
+                                </div>
+                            </div>
                     </div>
-                    <Doughnut data={liaData} options={options2}/>
-                    <Doughnut data={expensesData} options={options3}/>
+                <div className='flexwrapcolumn'>
+                    <div className='container1 expand'>
+                        <Doughnut className='expand' style={{maxHeight:'20vh', color:'white'}} data={data} options={options}/>
+                        <div className='Mid-text'>
+                            <p3 style={{color: 'green'}}>Assets: ${aTot} </p3>
+                            <p3 style={{color: '#F41212'}}>Liabilities: ${lTot} </p3>
+                            <p3>Net Worth: ${aTot - lTot} </p3>
+                        </div>
+                        <Doughnut className='expand' style={{maxHeight:'20vh'}} data={liaData} options={options2}/>
+                    </div>
+                    <div className='container3 expand'>
+                        <p style={{ fontSize: '2vh' }}>Savings Goals</p>
+                        <FinancialGoalProgressBar
+                            goalName="Net Worth"
+                            currentAmount={calculateNetWorth()}
+                            initialGoalAmount={2000}
+                            exceededColor="success" // danger
+                        />
+                        <p style={{ fontSize: '2vh' }}>Expenses Goals</p>
+                        <FinancialGoalProgressBar
+                            goalName="Monthly Expenses"
+                            currentAmount={calculateMonthlyExpenses()}
+                            initialGoalAmount={2000}
+                            exceededColor="danger" // danger
+                        />
+                    </div>
+                </div>
 
                 </div>
             )}
