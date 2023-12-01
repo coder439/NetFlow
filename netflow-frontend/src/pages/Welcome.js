@@ -305,10 +305,10 @@ function Welcome() {
 
                     <div className='container1 expand'>
                         <div className='container1-1' style={{display:'flex'}}>
-                        <Doughnut className='expand' style={{maxHeight:'45vh', color:'white'}} data={data} options={options}/>
+                        <Doughnut className='expand' style={{maxHeight:'100%', color:'white'}} data={data} options={options}/>
                         </div>
                         <div className='container1-2' style={{display:'flex'}}>
-                        <Doughnut className='expand' style={{maxHeight:'45vh'}} data={liaData} options={options2}/>
+                        <Doughnut className='expand' style={{maxHeight:'100%'}} data={liaData} options={options2}/>
                         </div>
                         <div className='Mid-text'>
                             <p3 style={{color: 'green'}}>Assets: ${aTot} </p3>
