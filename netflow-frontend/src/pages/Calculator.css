@@ -144,11 +144,37 @@
     right: 400px;
   }
 
-  .var-button {
-    margin: 3px;
+  .dropdown-menu {
+    position: absolute;
+    bottom: 40px;
+    border-top: 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+  }
+
+  .dropdown-item {
+    position: absolute;
     padding: 0;
     width: 100px;
     height: 50px;
+    border-radius: 40px;
+    background-color: #c4c4c4;
+    color: #000000;
+    font-size: px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #000000;
+  }
+
+  .var-button {
+    margin: 3px;
+    padding: 0;
+    width: 95px;
+    height: 45px;
     border-radius: 40px;
     background-color: #c4c4c4;
     color: #000000;
@@ -160,6 +186,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 2px solid #000000;
   }
 
   #red {
@@ -246,24 +273,24 @@
   .submit-container {
     display: flex;
     position: absolute;
-    flex-direction: row;
+    flex-direction: column;
     margin-top: 75px;
     margin-left: 333px;
+    border-radius: 40px;
 }
 
   
 
   #delete {
-    border-bottom-left-radius: 40px;
+    margin-bottom: 22px;
+    border-radius: 40px;
     font-size: 40px;
-    border-top-left-radius: 40px;
-    border-right: 1px solid black;
+    width: 270px;
   }
 
   #enter {
     font-size: 40px;
-    border-bottom-right-radius: 40px;
-    border-top-right-radius: 40px;
-    
+    border-radius: 40px;
+    width: 270px;
   }
   

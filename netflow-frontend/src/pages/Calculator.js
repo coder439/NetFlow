@@ -17,6 +17,11 @@ function Calculator() {
   const [right, setRight] = useState(true);
   const [createFunc, setCreateFunc] = useState(false);
   const [createVar, setCreateVar] = useState(false);
+  const [isOpenR, setIsOpenR] = useState(false);
+  const [isOpenB, setIsOpenB] = useState(false);
+  const [isOpenY, setIsOpenY] = useState(false);
+  const [isOpenG, setIsOpenG] = useState(false);
+  const [customContext, setCustomContext] = useState({});
 
   const handleButtonClick = (value) => {
     const inputElement = document.getElementById('input');
@@ -26,7 +31,7 @@ function Calculator() {
     setUserInput((prevInput) => prevInput.slice(0, curPos) + value + prevInput.slice(curPos));
 
     curPos = inputElement.selectionStart;
-    inputElement.setSelectionRange(curPos + 1, curPos + 1);
+    inputElement.setSelectionRange(curPos + value.length, curPos + value.length);
     inputElement.focus();
   };
 
@@ -40,6 +45,17 @@ function Calculator() {
 
   const togFunc = () => {
     setCreateFunc((prevVal) => !prevVal);
+  };
+
+  const toggleDropdown = (num) => {
+    if (num == 1)
+     setIsOpenR(prevIsOpen => !prevIsOpen);
+    else if (num == 2)
+    setIsOpenB(prevIsOpen => !prevIsOpen);
+    else if (num == 3)
+    setIsOpenY(prevIsOpen => !prevIsOpen);
+    else
+    setIsOpenG(prevIsOpen => !prevIsOpen);
   };
 
   const handleEnter = () => {
@@ -61,7 +77,9 @@ function Calculator() {
     inputElement.focus();
     if (event.key === 'Enter') 
     {
+        const math = require('mathjs');
         let str = inputElement.value;
+        str = str.replace(/\s/g, '');
         if (!createVar && !createFunc)
         {
           
@@ -69,8 +87,8 @@ function Calculator() {
           str = str.replace(/×/g,'*');
   
   
-          const math = require('mathjs');
-          const res = math.evaluate(str);
+          
+          const res = math.evaluate(str, customContext);
   
           if (right)
           {
@@ -93,16 +111,49 @@ function Calculator() {
             setHistoryArrL((prevHistoryArrayL) => [...prevHistoryArrayL, str]);
           }
         }
-        else if (createVar)
+        else if (createFunc)
         {
-          setfuncArrayB((prevVal) => [...prevVal, str]);
+          const fParenInd = str.indexOf('(');
+          const sParenInd = str.indexOf(')');
+
+          var funcName = str.slice(0, fParenInd);
+          var params = str.slice(fParenInd+1, sParenInd)
+          const paramsArray = params.split(',');
+
+          str = str.slice(sParenInd + 2);
+
+          setCustomContext({...customContext, [funcName]: 
+            (...args) => {
+              var expr = str;
+              var pArray = paramsArray;
+  
+              for (let i = 0; i < args.length; i++)
+              {
+                console.log(expr);
+                expr = expr.split(pArray[i]).join(args[i]);
+                console.log(expr);
+              }
+  
+              return math.evaluate(expr, customContext);
+            }
+          });
+            
+
+          const newFunc = [funcName, str];
+          setfuncArrayR((prevVal) => [...prevVal, newFunc]);
         }
         else
         {
-          setVarArrayG((prevVal) => [...prevVal, str]);
+          const equalInd = str.indexOf('=');
+          const varName = str.slice(0,equalInd);
+          const varValStr = str.slice(equalInd+1);
+          const varVal = math.evaluate(varValStr, customContext);
+
+          setCustomContext({...customContext, [varName]: varVal});
+
+          const newVar = [varName, varVal];
+          setVarArrayY((prevVal) => [...prevVal, newVar]);
         }
-       
-        
         setUserInput('');
     };
   };
@@ -114,7 +165,7 @@ function Calculator() {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [right]);
+  }, [right, createFunc, createVar, customContext]);
 
   useEffect(() => {
     const handleSideSwitch = (event) => {
@@ -123,7 +174,7 @@ function Calculator() {
 
       if (mouseX <= 720 && mouseX >= 247 && mouseY <= 437 && mouseY >= 57) {
           setRight((prevRight) => false);
-          console.log(varArrayG);
+          console.log(customContext);
           
       }
       else if (mouseX >= 720 && mouseX <= 1130 && mouseY <= 437 && mouseY >= 57) {
@@ -139,7 +190,7 @@ function Calculator() {
     return () => {
       document.removeEventListener('click', handleSideSwitch);
     };
-  }, [right]);
+  }, [right, funcArrayB, funcArrayR, varArrayG, varArrayY, createFunc, customContext]);
 
   
   
@@ -194,11 +245,66 @@ function Calculator() {
          </div>
 
         <div className="variables-container">
-          <button className="var-button" id='red'></button>
-          <button className="var-button" id='blue'></button>
-          <button className="var-button" id='yellow'></button>
-          <button className="var-button" id='green'></button>
-        </div>  
+          <div className="var-button" id='red' onClick={() => toggleDropdown(1)}>
+            <div className={`dropdown-toggle ${isOpenR ? 'open' : ''}`} >
+              ^
+            </div>
+          </div>
+          {isOpenR && (
+              <div className="dropdown-menu">
+                {funcArrayR.map((option, index) => (
+                  <div key={index} onClick={() => handleButtonClick(option[0])}className="dropdown-item" id='red' style={{ bottom: `${index * 40}px`, zIndex:{index} }}>
+                    {option[0]}
+                  </div>
+                ))}
+              </div>
+            )}
+
+          <div className="var-button" id='blue' onClick={() => toggleDropdown(2)}>
+            <div className={`dropdown-toggle ${isOpenB ? 'open' : ''}`} >
+              ^
+            </div>
+          </div>
+          {isOpenB && (
+              <div className="dropdown-menu">
+                {funcArrayB.map((option, index) => (
+                  <div key={index} onClick={() => handleButtonClick(option[0])} className="dropdown-item" id='blue' style={{left:'105px', bottom: `${index * 40}px`, zIndex:{index} }}>
+                    {option[0]}
+                  </div>
+                ))}
+              </div>
+            )}
+
+          <div className="var-button" id='yellow' onClick={() => toggleDropdown(3)}>
+            <div className={`dropdown-toggle ${isOpenY ? 'open' : ''}`} >
+              ^
+            </div>
+          </div>
+          {isOpenY && (
+              <div className="dropdown-menu">
+                {varArrayY.map((option, index) => (
+                  <div key={index} onClick={() => handleButtonClick(option[0])}className="dropdown-item" id='yellow' style={{left:'210px', bottom: `${index * 40}px`, zIndex:{index} }}>
+                    {option[0]}
+                  </div>
+                ))}
+              </div>
+            )}
+
+          <div className="var-button" id='green' onClick={() => toggleDropdown(4)}>
+            <div className={`dropdown-toggle ${isOpenG ? 'open' : ''}`} >
+              ^
+            </div>
+          </div>
+          {isOpenG && (
+              <div className="dropdown-menu">
+                {varArrayG.map((option, index) => (
+                  <div key={index} onClick={() => handleButtonClick(option[0])}className="dropdown-item" id='green' style={{left:'325px', bottom: `${index * 40}px`, zIndex:{index} }}>
+                    {option[0]}
+                  </div>
+                ))}
+              </div>
+            )}
+        </div>
 
         <div className='sideDigits'>
           <button onClick={() => handleButtonClick('(')} className='digit-button'>(</button>
