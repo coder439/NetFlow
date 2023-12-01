@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { ProgressBar } from 'react-bootstrap';
 
-const FinancialGoalProgressBar = ({ goalName, currentAmount, initialGoalAmount,exceededColor }) => {
+const FinancialGoalProgressBar = ({ key, goalName, currentAmount, initialGoalAmount,exceededColor, onRemove }) => {
     // State for editable goal amount
     const [goalAmount, setGoalAmount] = useState(initialGoalAmount);
 
-    const progress = Math.min((currentAmount / goalAmount) * 100, 100);
+    let progress = Math.min((currentAmount / goalAmount) * 100, 100);
+    if (currentAmount < 0 || goalAmount == 0){
+        progress = 0
+    } 
     const progressBarColor = currentAmount > goalAmount ? exceededColor : 'primary';
 
     const handleGoalAmountChange = (event) => {
@@ -27,6 +30,8 @@ const FinancialGoalProgressBar = ({ goalName, currentAmount, initialGoalAmount,e
                     onChange={handleGoalAmountChange}
                     min="0"
                 />
+                <button onClick={() => onRemove(key)}>X</button>
+
             </div>
         </div>
     );
