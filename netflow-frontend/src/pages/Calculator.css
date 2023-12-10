@@ -87,7 +87,7 @@
   .histBox2 {
     position: absolute;
     top: 30px;
-    margin-left: 742px;
+    right: 290px;
     text-align: right;
     z-index: 2;
   }
@@ -159,7 +159,7 @@
 
   .dropdownMenu {
     position: absolute;
-    bottom: 90px;
+    bottom: 43px;
     border-top: 0;
     display: flex;
     flex-direction: column;
@@ -167,10 +167,6 @@
   }
 
   .dropdownItem {
-    top:50%;
-    left:50%;
-
-    position: absolute;
     padding: 0;
     width: 100px;
     height: 50px;
@@ -183,7 +179,6 @@
     align-items: center;
     justify-content: center;
     border: 2px solid #000000;
-    z-index: 5;
   }
 
   .var-button {
@@ -208,18 +203,22 @@
 
   #red {
     background-color: #ffafa3;
+    z-index: 6;
   }
 
   #blue {
     background-color: #80caff;
+    z-index: 6;
   }
 
   #yellow {
     background-color: #ffd965;
+    z-index: 6;
   }
 
   #green {
     background-color: #85e0a3;
+    z-index: 6;
   }
 
   .setters-container {

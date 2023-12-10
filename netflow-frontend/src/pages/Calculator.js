@@ -177,7 +177,7 @@ function Calculator() {
       }
       else if (mouseX >= 1085 && mouseX <= 1187 && mouseY <= 390 && mouseY >= 5) {
         setRight((prevRight) => true);
-        console.log(funcArrayB);
+        console.log(varArrayY);
       }
       
     };
@@ -247,10 +247,10 @@ function Calculator() {
             ^
           </div>
           {isOpenR && (
-              <div className="dropdownMenu">
+              <div className="dropdownMenu" style={{left:'2px'}}>
                 {funcArrayR.map((option, index) => (
-                  <div key={index} onClick={() => handleButtonClick(option[0])}className="dropdownItem" id='red' style={{left:'2px', bottom: `${index * 40}px`, zIndex:{index} }}>
-                    {option[0]}
+                  <div key={index} onClick={() => handleButtonClick(option[0])}className="dropdownItem" id='red' style={{left:'2px', marginTop:`-10px`,  zIndex:{index}+4 }}>
+                    {index}
                   </div>
                 ))}
               </div>
@@ -260,9 +260,9 @@ function Calculator() {
             ^
           </div>
           {isOpenB && (
-              <div className="dropdownMenu">
+              <div className="dropdownMenu"  style={{left:'110px'}}>
                 {funcArrayB.map((option, index) => (
-                  <div key={index} onClick={() => handleButtonClick(option[0])} className="dropdownItem" id='blue' style={{left:'110px', bottom: `${index * 40}px`, zIndex:{index} }}>
+                  <div key={index} onClick={() => handleButtonClick(option[0])} className="dropdownItem" id='blue' style={{left:'110px', marginTop:`-10px`, zIndex:{index}+4 }}>
                     {option[0]}
                   </div>
                 ))}
@@ -273,9 +273,9 @@ function Calculator() {
             ^
           </div>
           {isOpenY && (
-              <div className="dropdownMenu">
+              <div className="dropdownMenu" style={{left:'215px'}}>
                 {varArrayY.map((option, index) => (
-                  <div key={index} onClick={() => handleButtonClick(option[0])}className="dropdownItem" id='yellow' style={{left:'215px', bottom: `${index * 40}px`, zIndex:{index} }}>
+                  <div key={index} onClick={() => handleButtonClick(option[0])}className="dropdownItem" id='yellow' style={{left:'215px', marginTop:`-10px`, zIndex:{index}+4 }}>
                     {option[0]}
                   </div>
                 ))}
@@ -286,9 +286,9 @@ function Calculator() {
             ^
           </div>
           {isOpenG && (
-              <div className="dropdownMenu">
+              <div className="dropdownMenu" style={{left:'320px'}}>
                 {varArrayG.map((option, index) => (
-                  <div key={index} onClick={() => handleButtonClick(option[0])}className="dropdownItem" id='green' style={{left:'320px', bottom: `${index * 40}px`, zIndex:{index} }}>
+                  <div key={index} onClick={() => handleButtonClick(option[index])}className="dropdownItem" id='green' style={{left:'320px', marginTop:`-10px`, zIndex:{index}+4 }}>
                     {option[0]}
                   </div>
                 ))}
